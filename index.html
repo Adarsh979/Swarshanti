@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="SwarShanti"/>
-<title>Swar Shanti — स्वरशांति</title>
+<title>Swar Shanti · स्वरशांति — Instrumental Music</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Serif+Devanagari:wght@300;400&display=swap" rel="stylesheet"/>
@@ -202,11 +202,24 @@ audio{width:100%;border-radius:8px;outline:none;margin-bottom:12px;accent-color:
   <div class="orb" id="o3" style="width:240px;height:240px;top:42%;left:44%;opacity:0.04;background:#c8a86b;animation-duration:22s;animation-delay:-6s;"></div>
 </div>
 <div class="app">
+  <!-- PWA install banner -->
+  <div id="installBanner" style="display:none;margin:16px 20px 0;background:rgba(200,168,107,0.07);border:1px solid rgba(200,168,107,0.18);border-radius:14px;padding:12px 16px;display:none;align-items:center;gap:12px;">
+    <span style="font-size:22px;">📲</span>
+    <div style="flex:1;min-width:0;">
+      <div style="font-size:12px;font-weight:500;color:var(--text);">Add to Home Screen</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:2px;">Use SwarShanti like an app — offline ready</div>
+    </div>
+    <button id="installBtn" style="padding:7px 14px;border-radius:100px;border:1px solid var(--gold);background:none;color:var(--gold);font-size:11px;cursor:pointer;white-space:nowrap;font-family:var(--fb);">Install</button>
+    <button onclick="document.getElementById('installBanner').style.display='none'" style="background:none;border:none;color:var(--dim);cursor:pointer;font-size:14px;flex-shrink:0;">✕</button>
+  </div>
   <header>
     <div class="hdeco">Pure · Instrumental · Timeless</div>
     <div class="brand">SwarShanti</div>
     <div class="brand-hi">स्वरशांति</div>
     <div class="hline"></div>
+    <p style="font-family:var(--fd);font-size:15px;font-weight:300;font-style:italic;color:var(--muted);letter-spacing:0.04em;line-height:1.7;max-width:320px;margin:0 auto 6px;">
+      Ragas for every hour. Silence between the notes.
+    </p>
   </header>
 
   <div class="sw">
@@ -243,7 +256,7 @@ audio{width:100%;border-radius:8px;outline:none;margin-bottom:12px;accent-color:
         <div class="vcard" data-vibe="melancholic" data-cat="mood" data-query="Amjad Ali Khan sarod" data-label="Melancholic" data-emoji="🌧️" style="animation-delay:.12s">
           <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1501691223387-dd0500403074?w=400&q=70&fit=crop')"></div>
           <div class="vcard-ov"></div>
-          <div class="vcard-body"><span class="vcard-emoji">🌧️</span><div class="vcard-name">Melancholic</div><div class="vcard-sub">Sarod · Deep · Longing</div></div>
+          <div class="vcard-body"><span class="vcard-emoji">🌫️</span><div class="vcard-name">Melancholic</div><div class="vcard-sub">Sarod · Deep · Longing</div></div>
         </div>
         <div class="vcard" data-vibe="energetic" data-cat="mood" data-query="Zakir Hussain tabla" data-label="Energetic" data-emoji="🔥" style="animation-delay:.16s">
           <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&q=70&fit=crop')"></div>
@@ -360,7 +373,7 @@ audio{width:100%;border-radius:8px;outline:none;margin-bottom:12px;accent-color:
       <button class="pb" id="prevB">⏮</button>
       <button class="pb pp" id="ppB">▶</button>
       <button class="pb" id="nextB">⏭</button>
-      <button class="pb" id="expB">↑</button>
+      <button class="pb" id="expB">⌃</button>
     </div>
   </div>
   <div class="pexp" id="pexp">
@@ -382,9 +395,6 @@ audio{width:100%;border-radius:8px;outline:none;margin-bottom:12px;accent-color:
   </div>
 </div>
 <div class="toast" id="toast"></div>
-<div id="debugBox" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:rgba(0,0,0,0.95);overflow:auto;padding:20px;font-size:11px;font-family:monospace;color:#0f0;white-space:pre-wrap;word-break:break-all;">
-  <button onclick="document.getElementById('debugBox').style.display='none'" style="position:sticky;top:0;background:#e8445a;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;margin-bottom:12px;display:block;">✕ Close</button>
-  <div id="debugContent">Tap any vibe card to see API response here...</div>
 </div>
 
 <script>
@@ -410,18 +420,6 @@ const FALLBACKS = {
   space:       ['ambient meditation drone music', 'cosmic meditation music', 'deep ambient instrumental'],
 };
 
-// ── DEBUG: tap card 3 times fast to show raw API response ──
-let tapCount=0, tapTimer=null;
-document.addEventListener('click', ()=>{
-  tapCount++;
-  clearTimeout(tapTimer);
-  tapTimer=setTimeout(()=>{ tapCount=0; },400);
-  if(tapCount>=3){
-    const d=document.getElementById('debugBox');
-    d.style.display=d.style.display==='none'?'block':'none';
-    tapCount=0;
-  }
-});
 
 const FAV_KEY = 'sw_favs';
 
@@ -556,7 +554,6 @@ async function loadSongs(query, vibe) {
       if (!r.ok) continue;
       const data = await r.json();
       lastDebug = 'Query tried: ' + q + '\nURL: ' + url + '\n\n' + JSON.stringify(data, null, 2);
-      document.getElementById('debugContent').textContent = lastDebug;
       const mapped = parseSongs(data);
       if (mapped.length) {
         cache[vibe] = mapped;
@@ -667,7 +664,7 @@ document.getElementById('ppB').addEventListener('click',e=>{
 function toggleExp(){
   expanded=!expanded;
   document.getElementById('pexp').classList.toggle('on',expanded);
-  document.getElementById('expB').textContent=expanded?'↓':'↑';
+  document.getElementById('expB').textContent=expanded?'⌄':'⌃';
 }
 document.getElementById('expB').addEventListener('click',e=>{e.stopPropagation();toggleExp();});
 document.getElementById('phandle').addEventListener('click',toggleExp);
@@ -737,6 +734,38 @@ function showToast(msg){
 }
 
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+// ── KEYBOARD SHORTCUTS ────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.code === 'Space') {
+    e.preventDefault();
+    if (audio.paused) { audio.play(); document.getElementById('ppB').textContent='⏸'; }
+    else { audio.pause(); document.getElementById('ppB').textContent='▶'; }
+  }
+  if (e.code === 'ArrowRight' && idx < songs.length-1) playSong(idx+1);
+  if (e.code === 'ArrowLeft' && idx > 0) playSong(idx-1);
+});
+
+// ── PWA INSTALL PROMPT ────────────────────────────────────────
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const banner = document.getElementById('installBanner');
+  if (banner) banner.style.display = 'flex';
+});
+document.getElementById('installBtn')?.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('installBanner').style.display = 'none';
+  if (outcome === 'accepted') showToast('SwarShanti installed ✦');
+});
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installBanner').style.display = 'none';
+});
 </script>
 </body>
 </html>
