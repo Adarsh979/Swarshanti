@@ -1,0 +1,14 @@
+{
+  "name": "SwarShanti — स्वरशांति",
+  "short_name": "SwarShanti",
+  "description": "Instrumental music for every mood, time, feel and surrounding",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050a0e",
+  "theme_color": "#050a0e",
+  "orientation": "portrait",
+  "icons": [
+    {"src": "https://via.placeholder.com/192x192/050a0e/c8a86b?text=✦", "sizes": "192x192", "type": "image/png"},
+    {"src": "https://via.placeholder.com/512x512/050a0e/c8a86b?text=✦", "sizes": "512x512", "type": "image/png"}
+  ]
+}
