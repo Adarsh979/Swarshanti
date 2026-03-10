@@ -6,737 +6,355 @@
 <meta name="theme-color" content="#050a0e"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="SwarShanti"/>
-<meta name="description" content="Instrumental music for every mood, time, feel and surrounding."/>
 <title>SwarShanti — स्वरशांति</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Serif+Devanagari:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
-/* ── TOKENS ───────────────────────────────────────────────── */
-:root {
-  --ink: #050a0e;
-  --ink2: #0b1318;
-  --ink3: #111d24;
-  --glass: rgba(255,255,255,0.04);
-  --glassborder: rgba(255,255,255,0.07);
-  --text: #e8e0d0;
-  --muted: rgba(232,224,208,0.45);
-  --dim: rgba(232,224,208,0.18);
-  --gold: #c8a86b;
-  --goldglow: rgba(200,168,107,0.25);
-  --r: 18px;
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'DM Sans', sans-serif;
-  --font-hindi: 'Noto Serif Devanagari', serif;
+:root{
+  --ink:#050a0e;--ink2:#0b1318;--ink3:#111d24;
+  --glass:rgba(255,255,255,0.04);--gb:rgba(255,255,255,0.07);
+  --text:#e8e0d0;--muted:rgba(232,224,208,0.45);--dim:rgba(232,224,208,0.18);
+  --gold:#c8a86b;--r:16px;
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fb:'DM Sans',sans-serif;
 }
-
-/* ── RESET ────────────────────────────────────────────────── */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;}
-body{
-  font-family:var(--font-body);
-  background:var(--ink);
-  color:var(--text);
-  min-height:100vh;
-  overflow-x:hidden;
+body{font-family:var(--fb);background:var(--ink);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+/* noise */
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity:0.6;
 }
 
-/* ── NOISE TEXTURE OVERLAY ────────────────────────────────── */
-body::before{
-  content:'';
-  position:fixed;inset:0;z-index:1;
-  pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity:0.5;
-}
+#ambientBg{position:fixed;inset:0;z-index:0;transition:background 2s ease;
+  background:radial-gradient(ellipse 80% 60% at 15% 15%,rgba(12,40,30,0.7) 0%,transparent 65%),
+             radial-gradient(ellipse 60% 70% at 85% 85%,rgba(10,20,40,0.7) 0%,transparent 65%),var(--ink);}
+.orb{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none;animation:orbF 22s ease-in-out infinite;}
+@keyframes orbF{0%,100%{transform:translate(0,0)}40%{transform:translate(25px,-18px)}70%{transform:translate(-18px,12px)}}
 
-/* ── AMBIENT BACKGROUND ───────────────────────────────────── */
-#ambientBg{
-  position:fixed;inset:0;z-index:0;
-  transition:background 2s ease;
-  background:radial-gradient(ellipse 80% 60% at 20% 20%, rgba(12,40,30,0.8) 0%, transparent 70%),
-             radial-gradient(ellipse 60% 80% at 80% 80%, rgba(10,20,40,0.8) 0%, transparent 70%),
-             var(--ink);
-}
-.orb{
-  position:absolute;border-radius:50%;filter:blur(120px);
-  animation:orbFloat 20s ease-in-out infinite;
-  pointer-events:none;
-}
-@keyframes orbFloat{
-  0%,100%{transform:translate(0,0) scale(1);}
-  33%{transform:translate(30px,-20px) scale(1.05);}
-  66%{transform:translate(-20px,15px) scale(0.95);}
-}
+.app{position:relative;z-index:2;min-height:100vh;padding-bottom:220px;}
 
-/* ── APP SHELL ────────────────────────────────────────────── */
-.app{
-  position:relative;z-index:2;
-  min-height:100vh;
-  padding-bottom:220px;
-}
+/* ── HEADER ── */
+header{padding:44px 20px 0;text-align:center;}
+.hdeco{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);opacity:0.65;margin-bottom:10px;}
+.brand{font-family:var(--fd);font-size:clamp(36px,7vw,58px);font-weight:300;letter-spacing:0.02em;line-height:1;}
+.brand-hi{font-family:'Noto Serif Devanagari',serif;font-size:clamp(13px,2.5vw,17px);font-weight:300;color:var(--gold);letter-spacing:0.06em;opacity:0.8;margin-top:4px;margin-bottom:18px;}
+.hline{width:50px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 28px;}
 
-/* ── HEADER ───────────────────────────────────────────────── */
-header{
-  padding: 52px 24px 0;
-  text-align:center;
-  position:relative;
-}
-.header-deco{
-  font-size:10px;letter-spacing:5px;text-transform:uppercase;
-  color:var(--gold);opacity:0.7;margin-bottom:12px;
-  font-family:var(--font-body);font-weight:300;
-}
-.brand{
-  font-family:var(--font-display);
-  font-size:clamp(38px,8vw,62px);
-  font-weight:300;
-  letter-spacing:0.02em;
-  color:var(--text);
-  line-height:1;
-  margin-bottom:6px;
-}
-.brand-hindi{
-  font-family:var(--font-hindi);
-  font-size:clamp(14px,3vw,18px);
-  font-weight:300;
-  color:var(--gold);
-  letter-spacing:0.08em;
-  opacity:0.85;
-  margin-bottom:20px;
-}
-.header-line{
-  width:60px;height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  margin:0 auto 28px;
-}
-
-/* ── SEARCH ───────────────────────────────────────────────── */
-.search-wrap{
-  max-width:420px;margin:0 auto 40px;
-  padding:0 24px;
-}
-.sbox{
-  display:flex;align-items:center;gap:10px;
-  background:var(--glass);
-  border:1px solid var(--glassborder);
-  border-radius:100px;
-  padding:11px 18px;
-  backdrop-filter:blur(10px);
-  transition:border-color .3s;
-}
+/* ── SEARCH ── */
+.sw{max-width:400px;margin:0 auto 32px;padding:0 20px;}
+.sbox{display:flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--gb);border-radius:100px;padding:10px 18px;backdrop-filter:blur(10px);transition:border-color .3s;}
 .sbox:focus-within{border-color:rgba(200,168,107,0.3);}
-.sbox input{
-  flex:1;background:none;border:none;outline:none;
-  color:var(--text);font-size:13px;
-  font-family:var(--font-body);font-weight:300;
-  letter-spacing:0.03em;
-}
+.sbox input{flex:1;background:none;border:none;outline:none;color:var(--text);font-size:13px;font-family:var(--fb);font-weight:300;letter-spacing:0.02em;}
 .sbox input::placeholder{color:var(--dim);}
 #clearBtn{color:var(--dim);cursor:pointer;font-size:12px;display:none;flex-shrink:0;}
 
-/* ── CATEGORY NAV ─────────────────────────────────────────── */
-.cat-nav{
-  display:flex;gap:6px;
-  justify-content:center;
-  flex-wrap:wrap;
-  padding:0 24px;
-  margin-bottom:40px;
-}
-.cat-btn{
-  padding:7px 18px;
-  border-radius:100px;
-  border:1px solid var(--glassborder);
-  background:var(--glass);
-  color:var(--muted);
-  font-size:11px;font-weight:400;
-  font-family:var(--font-body);
-  letter-spacing:0.08em;text-transform:uppercase;
-  cursor:pointer;transition:all .25s;
-  backdrop-filter:blur(8px);
-}
-.cat-btn:hover{color:var(--text);border-color:rgba(255,255,255,0.15);}
-.cat-btn.on{
-  color:var(--ink);
-  border-color:transparent;
-  background:var(--gold);
-  font-weight:500;
-}
+/* ── CAT NAV ── */
+.catnav{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:0 20px;margin-bottom:28px;}
+.catbtn{padding:7px 18px;border-radius:100px;border:1px solid var(--gb);background:var(--glass);color:var(--muted);font-size:11px;font-weight:400;font-family:var(--fb);letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all .25s;backdrop-filter:blur(8px);}
+.catbtn:hover{color:var(--text);border-color:rgba(255,255,255,0.15);}
+.catbtn.on{color:var(--ink);border-color:transparent;background:var(--gold);font-weight:500;}
 
-/* ── GRID LAYOUT ──────────────────────────────────────────── */
-.grid-wrap{padding:0 20px;}
-.grid-label{
-  font-family:var(--font-display);
-  font-size:13px;
-  font-style:italic;
-  color:var(--gold);
-  letter-spacing:0.1em;
-  margin-bottom:18px;
-  opacity:0.8;
-  text-align:center;
-}
-.vibe-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  max-width:900px;
-  margin:0 auto 32px;
-}
+/* ── GRID ── */
+.gwrap{padding:0 16px;max-width:960px;margin:0 auto;}
+.glabel{font-family:var(--fd);font-size:12px;font-style:italic;color:var(--gold);letter-spacing:0.1em;margin-bottom:16px;opacity:0.7;text-align:center;}
+.vgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:32px;}
+@media(max-width:640px){.vgrid{grid-template-columns:repeat(2,1fr);}}
 
-/* ── VIBE CARD ────────────────────────────────────────────── */
+/* ── VIBE CARD ── */
 .vcard{
-  position:relative;
-  border-radius:20px;
-  overflow:hidden;
-  cursor:pointer;
-  border:1px solid var(--glassborder);
-  aspect-ratio:3/5;
-  transition:transform .3s cubic-bezier(.34,1.3,.64,1), box-shadow .3s;
-  animation:fadeUp .5s ease both;
-}
-.vcard:hover{
-  transform:translateY(-5px);
-  box-shadow:0 20px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
-}
-.vcard.active{
-  border-color:rgba(200,168,107,0.5);
-  box-shadow:0 0 0 1px rgba(200,168,107,0.3), 0 24px 60px rgba(0,0,0,0.7);
-}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(18px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-/* card backgrounds — each vibe has a unique gradient */
-.vcard[data-vibe="peaceful"]   {background:linear-gradient(160deg,#101f1a 0%,#0c1a15 50%,#080f0c 100%);}
-.vcard[data-vibe="romantic"]   {background:linear-gradient(160deg,#1e1018 0%,#180c14 50%,#0d080a 100%);}
-.vcard[data-vibe="melancholic"]{background:linear-gradient(160deg,#0f1520 0%,#0c1018 50%,#080a0f 100%);}
-.vcard[data-vibe="energetic"]  {background:linear-gradient(160deg,#1e1510 0%,#18110c 50%,#0d0a08 100%);}
-.vcard[data-vibe="morning"]    {background:linear-gradient(160deg,#1e1a0e 0%,#18150a 50%,#0d0e08 100%);}
-.vcard[data-vibe="afternoon"]  {background:linear-gradient(160deg,#111d0f 0%,#0d170b 50%,#080e07 100%);}
-.vcard[data-vibe="evening"]    {background:linear-gradient(160deg,#1e120e 0%,#180e0a 50%,#0d0807 100%);}
-.vcard[data-vibe="latenight"]  {background:linear-gradient(160deg,#0b0b18 0%,#080810 50%,#05050c 100%);}
-.vcard[data-vibe="focused"]    {background:linear-gradient(160deg,#0d1018 0%,#090c14 50%,#060810 100%);}
-.vcard[data-vibe="relaxed"]    {background:linear-gradient(160deg,#0f1e1a 0%,#0c1815 50%,#080e0c 100%);}
-.vcard[data-vibe="sleepy"]     {background:linear-gradient(160deg,#12101e 0%,#0e0c18 50%,#09080f 100%);}
-.vcard[data-vibe="motivated"]  {background:linear-gradient(160deg,#1c1410 0%,#16100c 50%,#0c0908 100%);}
-.vcard[data-vibe="rain"]       {background:linear-gradient(160deg,#0d1318 0%,#0a1015 50%,#07090e 100%);}
-.vcard[data-vibe="cafe"]       {background:linear-gradient(160deg,#1a1510 0%,#15110c 50%,#0c0d08 100%);}
-.vcard[data-vibe="nature"]     {background:linear-gradient(160deg,#0f1c12 0%,#0b1610 50%,#070e08 100%);}
-.vcard[data-vibe="space"]      {background:linear-gradient(160deg,#08080f 0%,#06060c 50%,#040408 100%);}
-
-/* card glow accent per vibe */
-.vcard::before{
-  content:'';position:absolute;
-  width:160px;height:160px;
-  border-radius:50%;filter:blur(80px);
-  top:-30px;right:-30px;
-  opacity:0.18;
-  transition:opacity .3s;
-}
-.vcard:hover::before{opacity:0.28;}
-.vcard[data-vibe="peaceful"]::before   {background:#4a9e7a;}
-.vcard[data-vibe="romantic"]::before   {background:#9e5a70;}
-.vcard[data-vibe="melancholic"]::before{background:#5a7a9e;}
-.vcard[data-vibe="energetic"]::before  {background:#9e7a4a;}
-.vcard[data-vibe="morning"]::before    {background:#b8945a;}
-.vcard[data-vibe="afternoon"]::before  {background:#6a9e5a;}
-.vcard[data-vibe="evening"]::before    {background:#9e6a4a;}
-.vcard[data-vibe="latenight"]::before  {background:#5a5a9e;}
-.vcard[data-vibe="focused"]::before    {background:#4a7a9e;}
-.vcard[data-vibe="relaxed"]::before    {background:#4a9e8a;}
-.vcard[data-vibe="sleepy"]::before     {background:#7a5a9e;}
-.vcard[data-vibe="motivated"]::before  {background:#9e6a4a;}
-.vcard[data-vibe="rain"]::before       {background:#4a6a9e;}
-.vcard[data-vibe="cafe"]::before       {background:#9e7a4a;}
-.vcard[data-vibe="nature"]::before     {background:#4a8a5a;}
-.vcard[data-vibe="space"]::before      {background:#5a4a8a;}
-
-.vcard::after{
-  content:'';
-  position:absolute;inset:0;
-  background:linear-gradient(160deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0.65) 100%);
-  z-index:0;
-  border-radius:20px;
-}
-.vcard-inner{
-  position:relative;z-index:1;
-  height:100%;
-  display:flex;flex-direction:column;
-  justify-content:space-between;
-  padding:14px 12px 14px;
-}
-.vcard-emoji{font-size:26px;margin-bottom:auto;filter:drop-shadow(0 0 8px rgba(255,255,255,0.15));opacity:0.8;}
-.vcard-name{
-  font-family:var(--font-display);
-  font-size:18px;font-weight:300;
-  letter-spacing:0.03em;
-  line-height:1.1;
-  color:rgba(255,255,255,0.9);
-  margin-bottom:4px;
-}
-.vcard-sub{
-  font-size:9px;font-weight:300;
-  letter-spacing:0.1em;text-transform:uppercase;
-  color:rgba(255,255,255,0.28);
-  line-height:1.5;
-}
-.vcard-count{
-  position:absolute;top:14px;right:14px;
-  font-size:9px;letter-spacing:0.08em;text-transform:uppercase;
-  color:rgba(255,255,255,0.25);
-  background:rgba(0,0,0,0.3);
-  padding:3px 8px;border-radius:100px;
+  position:relative;border-radius:16px;overflow:hidden;cursor:pointer;
   border:1px solid rgba(255,255,255,0.06);
+  aspect-ratio:3/4;
+  transition:transform .3s cubic-bezier(.34,1.2,.64,1),box-shadow .3s,border-color .3s;
+  animation:fu .5s ease both;
 }
+.vcard:hover{transform:translateY(-5px);box-shadow:0 18px 45px rgba(0,0,0,0.6);}
+.vcard.active{border-color:rgba(200,168,107,0.45);box-shadow:0 0 0 1px rgba(200,168,107,0.25),0 20px 50px rgba(0,0,0,0.7);}
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
-/* playing indicator on card */
-.vcard.active .vcard-emoji{animation:pulse 2s ease-in-out infinite;}
-@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.12);}}
-
-/* ── SONG LIST PANEL ──────────────────────────────────────── */
-#songPanel{
-  max-width:700px;margin:0 auto;
-  padding:0 20px;
-  display:none;
+/* card background image */
+.vcard-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  transition:transform 6s ease;
 }
+.vcard:hover .vcard-bg{transform:scale(1.04);}
+
+/* dark overlay — gradient from bottom */
+.vcard-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15) 0%,
+    rgba(0,0,0,0.1) 30%,
+    rgba(0,0,0,0.55) 65%,
+    rgba(0,0,0,0.82) 100%
+  );
+}
+/* top shimmer line */
+.vcard::after{content:'';position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);z-index:3;}
+
+.vcard-body{
+  position:absolute;bottom:0;left:0;right:0;z-index:4;
+  padding:14px 14px 16px;
+}
+.vcard-emoji{font-size:22px;margin-bottom:8px;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.5));}
+.vcard-name{font-family:var(--fd);font-size:19px;font-weight:300;letter-spacing:0.03em;color:rgba(255,255,255,0.92);line-height:1.1;margin-bottom:4px;}
+.vcard-sub{font-size:9px;font-weight:300;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.38);line-height:1.5;}
+
+/* fallback bg colors if image fails */
+.vcard[data-vibe="peaceful"]   .vcard-bg{background-color:#0d1f18;}
+.vcard[data-vibe="romantic"]   .vcard-bg{background-color:#1a0d14;}
+.vcard[data-vibe="melancholic"].vcard-bg{background-color:#0d1320;}
+.vcard[data-vibe="energetic"]  .vcard-bg{background-color:#1a1208;}
+.vcard[data-vibe="morning"]    .vcard-bg{background-color:#1a1808;}
+.vcard[data-vibe="afternoon"]  .vcard-bg{background-color:#101a0c;}
+.vcard[data-vibe="evening"]    .vcard-bg{background-color:#1a100a;}
+.vcard[data-vibe="latenight"]  .vcard-bg{background-color:#08081a;}
+.vcard[data-vibe="focused"]    .vcard-bg{background-color:#0a0e1a;}
+.vcard[data-vibe="relaxed"]    .vcard-bg{background-color:#0c1a16;}
+.vcard[data-vibe="sleepy"]     .vcard-bg{background-color:#100a1a;}
+.vcard[data-vibe="motivated"]  .vcard-bg{background-color:#1a1008;}
+.vcard[data-vibe="rain"]       .vcard-bg{background-color:#0a1018;}
+.vcard[data-vibe="cafe"]       .vcard-bg{background-color:#181208;}
+.vcard[data-vibe="nature"]     .vcard-bg{background-color:#0a1810;}
+.vcard[data-vibe="space"]      .vcard-bg{background-color:#06060f;}
+
+/* ── SONG PANEL ── */
+#songPanel{max-width:700px;margin:0 auto;padding:0 20px;display:none;}
 #songPanel.open{display:block;}
-.panel-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:20px;
-}
-.panel-title{
-  font-family:var(--font-display);
-  font-size:26px;font-weight:300;font-style:italic;
-  color:var(--text);
-}
-.panel-close{
-  width:32px;height:32px;border-radius:50%;
-  border:1px solid var(--glassborder);
-  background:var(--glass);
-  color:var(--muted);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;transition:all .2s;
-}
-.panel-close:hover{color:var(--text);border-color:rgba(255,255,255,0.2);}
+.phead{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.ptitle{font-family:var(--fd);font-size:24px;font-weight:300;font-style:italic;}
+.pclose{width:30px;height:30px;border-radius:50%;border:1px solid var(--gb);background:var(--glass);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .2s;}
+.pclose:hover{color:var(--text);}
 
-.slist{display:flex;flex-direction:column;gap:2px;margin-bottom:40px;}
-.srow{
-  display:flex;align-items:center;gap:14px;
-  padding:11px 14px;border-radius:14px;
-  cursor:pointer;
-  transition:background .15s;
-  border:1px solid transparent;
-  animation:fadeUp .3s ease both;
-}
+.slist{display:flex;flex-direction:column;gap:2px;margin-bottom:32px;}
+.srow{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;cursor:pointer;transition:background .15s;border:1px solid transparent;animation:fu .3s ease both;}
 .srow:hover{background:var(--glass);}
-.srow.on{
-  background:rgba(200,168,107,0.06);
-  border-color:rgba(200,168,107,0.15);
-}
-.snum{
-  width:24px;text-align:center;
-  font-size:11px;color:var(--dim);
-  font-variant-numeric:tabular-nums;
-  flex-shrink:0;
-}
+.srow.on{background:rgba(200,168,107,0.06);border-color:rgba(200,168,107,0.14);}
+.snum{width:22px;text-align:center;font-size:11px;color:var(--dim);flex-shrink:0;}
 .srow.on .snum{display:none;}
-.sbars{display:none;gap:2px;align-items:flex-end;height:16px;width:24px;flex-shrink:0;}
+.sbars{display:none;gap:2px;align-items:flex-end;height:16px;width:22px;flex-shrink:0;}
 .srow.on .sbars{display:flex;}
-.sbars span{
-  display:block;width:3px;border-radius:2px;
-  background:var(--gold);
-  animation:bz .7s ease-in-out infinite;
-}
-.sbars span:nth-child(1){height:5px;animation-delay:0s}
-.sbars span:nth-child(2){height:14px;animation-delay:.1s}
-.sbars span:nth-child(3){height:7px;animation-delay:.2s}
-.sbars span:nth-child(4){height:12px;animation-delay:.3s}
+.sbars span{display:block;width:3px;border-radius:2px;background:var(--gold);animation:bz .7s ease-in-out infinite;}
+.sbars span:nth-child(1){height:5px;animation-delay:0s}.sbars span:nth-child(2){height:14px;animation-delay:.1s}.sbars span:nth-child(3){height:7px;animation-delay:.2s}.sbars span:nth-child(4){height:12px;animation-delay:.3s}
 @keyframes bz{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+.rart{width:46px;height:46px;border-radius:10px;flex-shrink:0;overflow:hidden;background:var(--ink3);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.rart img{width:100%;height:100%;object-fit:cover;display:block;}
+.rmeta{flex:1;min-width:0;}
+.rtitle{font-size:13px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rsub{font-size:11px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rdur{font-size:10px;color:var(--dim);flex-shrink:0;}
 
-.row-art{
-  width:48px;height:48px;border-radius:12px;
-  flex-shrink:0;overflow:hidden;background:var(--ink3);
-  display:flex;align-items:center;justify-content:center;font-size:20px;
-}
-.row-art img{width:100%;height:100%;object-fit:cover;display:block;}
-.srow-meta{flex:1;min-width:0;}
-.srow-title{
-  font-size:13px;font-weight:400;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  letter-spacing:0.01em;
-}
-.srow-sub{
-  font-size:11px;color:var(--muted);margin-top:3px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.srow-dur{font-size:10px;color:var(--dim);flex-shrink:0;font-variant-numeric:tabular-nums;}
-
-/* shimmer */
-.shimmer{
-  background:linear-gradient(90deg,var(--ink3) 25%,rgba(255,255,255,0.03) 50%,var(--ink3) 75%);
-  background-size:200% 100%;animation:sh 1.5s infinite;
-}
+.shimmer{background:linear-gradient(90deg,var(--ink3) 25%,rgba(255,255,255,0.03) 50%,var(--ink3) 75%);background-size:200% 100%;animation:sh 1.5s infinite;}
 @keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
-.empty{text-align:center;padding:60px 20px;color:var(--muted);}
-.empty-icon{font-size:40px;margin-bottom:14px;opacity:0.5;}
+.empty{text-align:center;padding:50px 20px;color:var(--muted);}
 .empty p{font-size:13px;line-height:1.8;font-style:italic;}
 
-/* ── PLAYER ───────────────────────────────────────────────── */
-#player{
-  position:fixed;bottom:0;left:0;right:0;z-index:300;
-  background:rgba(5,10,14,0.96);
-  backdrop-filter:blur(32px) saturate(1.5);
-  border-top:1px solid var(--glassborder);
-  transform:translateY(100%);
-  transition:transform .4s cubic-bezier(.34,1.1,.64,1);
-}
+/* ── PLAYER ── */
+#player{position:fixed;bottom:0;left:0;right:0;z-index:300;background:rgba(5,10,14,0.97);backdrop-filter:blur(32px);border-top:1px solid var(--gb);transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.1,.64,1);}
 #player.open{transform:translateY(0);}
-
-.player-handle{
-  width:36px;height:4px;border-radius:2px;
-  background:rgba(255,255,255,0.1);
-  margin:10px auto 0;cursor:pointer;
-}
-.pmini{
-  display:flex;align-items:center;gap:14px;
-  padding:10px 20px 14px;cursor:pointer;
-}
-.p-art{
-  width:46px;height:46px;border-radius:12px;
-  flex-shrink:0;overflow:hidden;background:var(--ink3);
-  display:flex;align-items:center;justify-content:center;font-size:20px;
-}
-.p-art img{width:100%;height:100%;object-fit:cover;display:block;}
-.p-meta{flex:1;min-width:0;}
-.p-title{
-  font-size:13px;font-weight:400;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  letter-spacing:0.01em;
-}
-.p-sub{font-size:11px;color:var(--muted);margin-top:2px;}
-.p-ctrl{display:flex;gap:4px;align-items:center;}
-.pb{
-  width:36px;height:36px;border-radius:50%;
-  border:none;background:none;color:var(--text);
-  cursor:pointer;font-size:14px;
-  display:flex;align-items:center;justify-content:center;
-  transition:background .2s;flex-shrink:0;
-}
+.phandle{width:34px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);margin:10px auto 0;cursor:pointer;}
+.pmini{display:flex;align-items:center;gap:12px;padding:10px 18px 12px;cursor:pointer;}
+.part{width:44px;height:44px;border-radius:10px;flex-shrink:0;overflow:hidden;background:var(--ink3);display:flex;align-items:center;justify-content:center;font-size:20px;}
+.part img{width:100%;height:100%;object-fit:cover;display:block;}
+.pmeta2{flex:1;min-width:0;}
+.ptit{font-size:13px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.psub2{font-size:11px;color:var(--muted);margin-top:1px;}
+.pctrl{display:flex;gap:3px;align-items:center;}
+.pb{width:36px;height:36px;border-radius:50%;border:none;background:none;color:var(--text);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:background .2s;}
 .pb:hover{background:var(--glass);}
-.pb.pp{
-  width:42px;height:42px;
-  background:var(--gold);color:var(--ink);
-  font-size:14px;font-weight:600;
-}
+.pb.pp{width:40px;height:40px;background:var(--gold);color:var(--ink);font-size:13px;}
 .pb.pp:hover{background:#d4b87a;}
 
-/* expanded player */
-.pexp{display:none;padding:0 20px 20px;}
+.pexp{display:none;padding:0 18px;padding-bottom:calc(14px + env(safe-area-inset-bottom));}
 .pexp.on{display:block;}
+.pbigart{width:88px;height:88px;border-radius:14px;overflow:hidden;background:var(--ink3);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 10px 35px rgba(0,0,0,0.5);}
+.pbigart img{width:100%;height:100%;object-fit:cover;display:block;}
+.pbigtit{font-family:var(--fd);font-size:20px;font-weight:300;font-style:italic;text-align:center;margin-bottom:3px;}
+.pbigsub{font-size:10px;color:var(--muted);text-align:center;margin-bottom:14px;letter-spacing:0.05em;text-transform:uppercase;}
+audio{width:100%;border-radius:8px;outline:none;margin-bottom:12px;accent-color:var(--gold);}
 
-.p-bigart{
-  width:100px;height:100px;border-radius:16px;
-  overflow:hidden;background:var(--ink3);
-  margin:0 auto 16px;
-  display:flex;align-items:center;justify-content:center;font-size:40px;
-  box-shadow:0 12px 40px rgba(0,0,0,0.5);
-}
-.p-bigart img{width:100%;height:100%;object-fit:cover;display:block;}
-.p-bigtitle{
-  font-family:var(--font-display);
-  font-size:22px;font-weight:300;font-style:italic;
-  text-align:center;margin-bottom:4px;
-}
-.p-bigsub{font-size:11px;color:var(--muted);text-align:center;margin-bottom:16px;letter-spacing:0.05em;}
+.sleepr{display:flex;gap:6px;justify-content:center;margin-bottom:12px;flex-wrap:wrap;align-items:center;}
+.sleepl{font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--dim);}
+.sleepbtn{padding:4px 11px;border-radius:100px;border:1px solid var(--gb);background:var(--glass);color:var(--dim);font-size:10px;cursor:pointer;transition:all .2s;}
+.sleepbtn:hover{color:var(--text);}
+.sleepbtn.on{background:rgba(200,168,107,0.1);border-color:var(--gold);color:var(--gold);}
 
-audio#audioEl{
-  width:100%;border-radius:10px;outline:none;
-  margin-bottom:14px;
-  accent-color:var(--gold);
-}
-/* style audio bar */
-audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
-
-.p-btns{display:flex;gap:8px;}
-.pbtn2{
-  flex:1;padding:11px 8px;border-radius:12px;
-  border:1px solid var(--glassborder);background:var(--glass);
-  color:var(--muted);font-size:11px;font-weight:400;
-  font-family:var(--font-body);letter-spacing:0.04em;
-  cursor:pointer;transition:all .2s;text-align:center;
-}
+.pbtns{display:flex;gap:8px;}
+.pbtn2{flex:1;padding:10px 8px;border-radius:10px;border:1px solid var(--gb);background:var(--glass);color:var(--muted);font-size:11px;font-family:var(--fb);letter-spacing:0.04em;cursor:pointer;transition:all .2s;text-align:center;}
 .pbtn2:hover{color:var(--text);border-color:rgba(255,255,255,0.15);}
-.pbtn2.gold{background:rgba(200,168,107,0.12);border-color:rgba(200,168,107,0.25);color:var(--gold);}
 
-/* ── SLEEP TIMER PILL ─────────────────────────────────────── */
-.sleep-row{
-  display:flex;gap:6px;justify-content:center;
-  margin-bottom:14px;flex-wrap:wrap;
-}
-.sleep-btn{
-  padding:5px 12px;border-radius:100px;
-  border:1px solid var(--glassborder);background:var(--glass);
-  color:var(--dim);font-size:10px;letter-spacing:0.06em;
-  cursor:pointer;transition:all .2s;
-}
-.sleep-btn:hover{color:var(--text);}
-.sleep-btn.on{background:rgba(200,168,107,0.12);border-color:var(--gold);color:var(--gold);}
-
-/* ── TOAST ────────────────────────────────────────────────── */
-.toast{
-  position:fixed;bottom:230px;left:50%;
-  transform:translateX(-50%) translateY(8px);
-  background:rgba(20,15,30,0.95);
-  border:1px solid var(--glassborder);
-  border-radius:100px;padding:9px 20px;
-  font-size:12px;color:var(--text);
-  opacity:0;transition:all .3s;pointer-events:none;z-index:999;
-  white-space:nowrap;backdrop-filter:blur(12px);
-}
+.toast{position:fixed;bottom:235px;left:50%;transform:translateX(-50%) translateY(8px);background:rgba(15,20,25,0.96);border:1px solid var(--gb);border-radius:100px;padding:8px 18px;font-size:12px;color:var(--text);opacity:0;transition:all .3s;pointer-events:none;z-index:999;white-space:nowrap;backdrop-filter:blur(12px);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-
-/* ── MISC ─────────────────────────────────────────────────── */
-.divider{
-  width:40px;height:1px;
-  background:linear-gradient(90deg,transparent,var(--glassborder),transparent);
-  margin:0 auto 40px;
-}
+.divider{width:36px;height:1px;background:linear-gradient(90deg,transparent,var(--gb),transparent);margin:0 auto 32px;}
 </style>
 </head>
 <body>
-
-<!-- Ambient background -->
 <div id="ambientBg">
-  <div class="orb" id="orb1" style="width:500px;height:500px;top:-100px;left:-150px;opacity:0.05;background:#4a9e7a;animation-duration:25s;"></div>
-  <div class="orb" id="orb2" style="width:400px;height:400px;bottom:-80px;right:-100px;opacity:0.04;background:#5a7a9e;animation-duration:30s;animation-delay:-10s;"></div>
-  <div class="orb" id="orb3" style="width:250px;height:250px;top:40%;left:45%;opacity:0.04;background:#c8a86b;animation-duration:20s;animation-delay:-5s;"></div>
+  <div class="orb" id="o1" style="width:480px;height:480px;top:-100px;left:-140px;opacity:0.05;background:#4a9e7a;animation-duration:28s;"></div>
+  <div class="orb" id="o2" style="width:380px;height:380px;bottom:-80px;right:-100px;opacity:0.04;background:#5a7a9e;animation-duration:32s;animation-delay:-12s;"></div>
+  <div class="orb" id="o3" style="width:240px;height:240px;top:42%;left:44%;opacity:0.04;background:#c8a86b;animation-duration:22s;animation-delay:-6s;"></div>
 </div>
-
 <div class="app">
   <header>
-    <div class="header-deco">Pure · Instrumental · Timeless</div>
+    <div class="hdeco">Pure · Instrumental · Timeless</div>
     <div class="brand">SwarShanti</div>
-    <div class="brand-hindi">स्वरशांति</div>
-    <div class="header-line"></div>
+    <div class="brand-hi">स्वरशांति</div>
+    <div class="hline"></div>
   </header>
 
-  <div class="search-wrap">
+  <div class="sw">
     <div class="sbox">
-      <span style="color:var(--dim);font-size:13px;flex-shrink:0;">✦</span>
-      <input id="searchInput" type="text" placeholder="Search any raga, mood or instrument…" autocomplete="off"/>
+      <span style="color:var(--dim);font-size:12px;flex-shrink:0;">✦</span>
+      <input id="searchInput" type="text" placeholder="Raga, mood, instrument…" autocomplete="off"/>
       <span id="clearBtn">✕</span>
     </div>
   </div>
 
-  <!-- Category filter -->
-  <div class="cat-nav">
-    <button class="cat-btn on" data-cat="mood">✦ Mood</button>
-    <button class="cat-btn" data-cat="time">◑ Time</button>
-    <button class="cat-btn" data-cat="feel">◈ Feel</button>
-    <button class="cat-btn" data-cat="surrounding">❋ Surrounding</button>
+  <div class="catnav">
+    <button class="catbtn on" data-cat="mood">✦ Mood</button>
+    <button class="catbtn" data-cat="time">◑ Time</button>
+    <button class="catbtn" data-cat="feel">◈ Feel</button>
+    <button class="catbtn" data-cat="surrounding">❋ Surrounding</button>
   </div>
 
-  <!-- Vibe grids — one per category -->
-  <div class="grid-wrap">
+  <div class="gwrap">
 
     <!-- MOOD -->
-    <div class="vibe-section" data-cat="mood">
-      <div class="grid-label">— How are you feeling? —</div>
-      <div class="vibe-grid">
-        <div class="vcard" data-vibe="peaceful" style="background-image:url(https://source.unsplash.com/featured/300x500/?meditation,lotus,calm,water);background-size:cover;background-position:center;" data-query="sitar flute bansuri instrumental" data-label="Peaceful" data-sub="Sitar · Flute · Still" data-emoji="🌿" style="animation-delay:.05s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">🌿</div>
-            <div>
-              <div class="vcard-name">Peaceful</div>
-              <div class="vcard-sub">Sitar · Flute · Still waters</div>
-            </div>
-          </div>
+    <div class="vsec" data-cat="mood">
+      <div class="glabel">— How are you feeling? —</div>
+      <div class="vgrid">
+        <div class="vcard" data-vibe="peaceful" data-cat="mood" data-query="bansuri flute instrumental peaceful meditation" data-label="Peaceful" data-emoji="🌿" style="animation-delay:.04s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">🌿</span><div class="vcard-name">Peaceful</div><div class="vcard-sub">Flute · Still · Calm</div></div>
         </div>
-        <div class="vcard" data-vibe="romantic" style="background-image:url(https://source.unsplash.com/featured/300x500/?rose,candle,soft,dusk);background-size:cover;background-position:center;" data-query="violin instrumental love romantic bollywood" data-label="Romantic" data-sub="Violin · Sarangi · Warm" data-emoji="🌹" style="animation-delay:.1s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">🌹</div>
-            <div>
-              <div class="vcard-name">Romantic</div>
-              <div class="vcard-sub">Violin · Sarangi · Warm light</div>
-            </div>
-          </div>
+        <div class="vcard" data-vibe="romantic" data-cat="mood" data-query="romantic instrumental violin bollywood love theme" data-label="Romantic" data-emoji="🌹" style="animation-delay:.08s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">🌹</span><div class="vcard-name">Romantic</div><div class="vcard-sub">Violin · Warm · Tender</div></div>
         </div>
-        <div class="vcard" data-vibe="melancholic" style="background-image:url(https://source.unsplash.com/featured/300x500/?rain,window,misty,grey);background-size:cover;background-position:center;" data-query="sarod instrumental sad classical indian" data-label="Melancholic" data-sub="Sarod · Strings · Longing" data-emoji="🌧️" style="animation-delay:.15s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">🌧️</div>
-            <div>
-              <div class="vcard-name">Melancholic</div>
-              <div class="vcard-sub">Sarod · Strings · Longing</div>
-            </div>
-          </div>
+        <div class="vcard" data-vibe="melancholic" data-cat="mood" data-query="sarod instrumental sad classical Indian raga" data-label="Melancholic" data-emoji="🌧️" style="animation-delay:.12s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1501691223387-dd0500403074?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">🌧️</span><div class="vcard-name">Melancholic</div><div class="vcard-sub">Sarod · Deep · Longing</div></div>
         </div>
-        <div class="vcard" data-vibe="energetic" style="background-image:url(https://source.unsplash.com/featured/300x500/?fire,drumming,festival,dance);background-size:cover;background-position:center;" data-query="tabla dhol fusion beats instrumental" data-label="Energetic" data-sub="Tabla · Dhol · Fire" data-emoji="🔥" style="animation-delay:.2s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">🔥</div>
-            <div>
-              <div class="vcard-name">Energetic</div>
-              <div class="vcard-sub">Tabla · Dhol · Pure fire</div>
-            </div>
-          </div>
+        <div class="vcard" data-vibe="energetic" data-cat="mood" data-query="tabla solo instrumental fusion Indian classical energetic" data-label="Energetic" data-emoji="🔥" style="animation-delay:.16s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">🔥</span><div class="vcard-name">Energetic</div><div class="vcard-sub">Tabla · Dhol · Fire</div></div>
         </div>
       </div>
     </div>
 
     <!-- TIME -->
-    <div class="vibe-section" data-cat="time" style="display:none">
-      <div class="grid-label">— What time is it? —</div>
-      <div class="vibe-grid">
-        <div class="vcard" data-vibe="morning" style="background-image:url(https://source.unsplash.com/featured/300x500/?sunrise,dawn,mist,forest);background-size:cover;background-position:center;" data-query="raga bhairav morning instrumental classical" data-label="Morning" data-sub="Raga Bhairav · Dawn" data-emoji="🌅" style="animation-delay:.05s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">🌅</div>
-            <div>
-              <div class="vcard-name">Morning</div>
-              <div class="vcard-sub">Raga Bhairav · Dawn ragas</div>
-            </div>
-          </div>
+    <div class="vsec" data-cat="time" style="display:none">
+      <div class="glabel">— What time is it? —</div>
+      <div class="vgrid">
+        <div class="vcard" data-vibe="morning" data-cat="time" data-query="raga bhairav morning classical sitar instrumental" data-label="Morning" data-emoji="🌅" style="animation-delay:.04s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">🌅</span><div class="vcard-name">Morning</div><div class="vcard-sub">Raga Bhairav · Dawn</div></div>
         </div>
-        <div class="vcard" data-vibe="afternoon" style="background-image:url(https://source.unsplash.com/featured/300x500/?sunlight,garden,green,open);background-size:cover;background-position:center;" data-query="raga bhimpalasi afternoon instrumental" data-label="Afternoon" data-sub="Raga Bhimpalasi · Midday" data-emoji="☀️" style="animation-delay:.1s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">☀️</div>
-            <div>
-              <div class="vcard-name">Afternoon</div>
-              <div class="vcard-sub">Raga Bhimpalasi · Midday</div>
-            </div>
-          </div>
+        <div class="vcard" data-vibe="afternoon" data-cat="time" data-query="raga bhimpalasi afternoon Indian classical instrumental" data-label="Afternoon" data-emoji="☀️" style="animation-delay:.08s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1499988921418-b7df40ff03f9?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">☀️</span><div class="vcard-name">Afternoon</div><div class="vcard-sub">Raga Bhimpalasi · Noon</div></div>
         </div>
-        <div class="vcard" data-vibe="evening" style="background-image:url(https://source.unsplash.com/featured/300x500/?sunset,orange,dusk,twilight);background-size:cover;background-position:center;" data-query="raga yaman evening instrumental" data-label="Evening" data-sub="Raga Yaman · Dusk" data-emoji="🌆" style="animation-delay:.15s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">🌆</div>
-            <div>
-              <div class="vcard-name">Evening</div>
-              <div class="vcard-sub">Raga Yaman · Dusk light</div>
-            </div>
-          </div>
+        <div class="vcard" data-vibe="evening" data-cat="time" data-query="raga yaman evening sunset instrumental sitar" data-label="Evening" data-emoji="🌆" style="animation-delay:.12s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">🌆</span><div class="vcard-name">Evening</div><div class="vcard-sub">Raga Yaman · Dusk</div></div>
         </div>
-        <div class="vcard" data-vibe="latenight" style="background-image:url(https://source.unsplash.com/featured/300x500/?stars,night,moon,dark);background-size:cover;background-position:center;" data-query="raga darbari midnight instrumental" data-label="Late Night" data-sub="Raga Darbari · Midnight" data-emoji="🌙" style="animation-delay:.2s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">🌙</div>
-            <div>
-              <div class="vcard-name">Late Night</div>
-              <div class="vcard-sub">Raga Darbari · Midnight</div>
-            </div>
-          </div>
+        <div class="vcard" data-vibe="latenight" data-cat="time" data-query="raga darbari midnight late night instrumental classical" data-label="Late Night" data-emoji="🌙" style="animation-delay:.16s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">🌙</span><div class="vcard-name">Late Night</div><div class="vcard-sub">Raga Darbari · Midnight</div></div>
         </div>
       </div>
     </div>
 
     <!-- FEEL -->
-    <div class="vibe-section" data-cat="feel" style="display:none">
-      <div class="grid-label">— What do you need? —</div>
-      <div class="vibe-grid">
-        <div class="vcard" data-vibe="focused" style="background-image:url(https://source.unsplash.com/featured/300x500/?desk,minimal,lamp,study);background-size:cover;background-position:center;" data-query="focus study instrumental concentration piano" data-label="Focused" data-sub="Minimal · No distraction" data-emoji="🎯" style="animation-delay:.05s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">🎯</div>
-            <div>
-              <div class="vcard-name">Focused</div>
-              <div class="vcard-sub">Minimal · No distraction</div>
-            </div>
-          </div>
+    <div class="vsec" data-cat="feel" style="display:none">
+      <div class="glabel">— What do you need? —</div>
+      <div class="vgrid">
+        <div class="vcard" data-vibe="focused" data-cat="feel" data-query="focus study concentration instrumental piano calm" data-label="Focused" data-emoji="🎯" style="animation-delay:.04s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">🎯</span><div class="vcard-name">Focused</div><div class="vcard-sub">Minimal · Clear · Sharp</div></div>
         </div>
-        <div class="vcard" data-vibe="relaxed" style="background-image:url(https://source.unsplash.com/featured/300x500/?hammock,nature,breeze,soft);background-size:cover;background-position:center;" data-query="bansuri flute lofi chill instrumental" data-label="Relaxed" data-sub="Bansuri · Lofi · Easy" data-emoji="🛋️" style="animation-delay:.1s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">🛋️</div>
-            <div>
-              <div class="vcard-name">Relaxed</div>
-              <div class="vcard-sub">Bansuri · Lofi · Easy</div>
-            </div>
-          </div>
+        <div class="vcard" data-vibe="relaxed" data-cat="feel" data-query="relaxing instrumental bansuri lofi chill calm soothing" data-label="Relaxed" data-emoji="🛋️" style="animation-delay:.08s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1471879832106-c7ab9e0cee23?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">🛋️</span><div class="vcard-name">Relaxed</div><div class="vcard-sub">Bansuri · Soft · Easy</div></div>
         </div>
-        <div class="vcard" data-vibe="sleepy" style="background-image:url(https://source.unsplash.com/featured/300x500/?moon,clouds,soft,night);background-size:cover;background-position:center;" data-query="sleep meditation drone ambient instrumental" data-label="Sleepy" data-sub="Drone · Slow · Drift" data-emoji="😴" style="animation-delay:.15s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">😴</div>
-            <div>
-              <div class="vcard-name">Sleepy</div>
-              <div class="vcard-sub">Drone · Slow · Drift away</div>
-            </div>
-          </div>
+        <div class="vcard" data-vibe="sleepy" data-cat="feel" data-query="sleep music instrumental slow drone ambient meditation" data-label="Sleepy" data-emoji="😴" style="animation-delay:.12s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">😴</span><div class="vcard-name">Sleepy</div><div class="vcard-sub">Drone · Slow · Drift</div></div>
         </div>
-        <div class="vcard" data-vibe="motivated" style="background-image:url(https://source.unsplash.com/featured/300x500/?mountain,summit,sky,horizon);background-size:cover;background-position:center;" data-query="uplifting motivation instrumental beats" data-label="Motivated" data-sub="Fusion · Uplifting · Drive" data-emoji="⚡" style="animation-delay:.2s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">⚡</div>
-            <div>
-              <div class="vcard-name">Motivated</div>
-              <div class="vcard-sub">Fusion · Uplifting · Drive</div>
-            </div>
-          </div>
+        <div class="vcard" data-vibe="motivated" data-cat="feel" data-query="motivational instrumental uplifting Indian fusion beats" data-label="Motivated" data-emoji="⚡" style="animation-delay:.16s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">⚡</span><div class="vcard-name">Motivated</div><div class="vcard-sub">Fusion · Rise · Drive</div></div>
         </div>
       </div>
     </div>
 
     <!-- SURROUNDING -->
-    <div class="vibe-section" data-cat="surrounding" style="display:none">
-      <div class="grid-label">— Where are you? —</div>
-      <div class="vibe-grid">
-        <div class="vcard" data-vibe="rain" style="background-image:url(https://source.unsplash.com/featured/300x500/?rain,drops,window,grey);background-size:cover;background-position:center;" data-query="rain ambient instrumental sitar nature" data-label="Rain" data-sub="Water · Petrichor · Grey" data-emoji="🌧️" style="animation-delay:.05s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">🌧️</div>
-            <div>
-              <div class="vcard-name">Rain</div>
-              <div class="vcard-sub">Water · Petrichor · Grey skies</div>
-            </div>
-          </div>
+    <div class="vsec" data-cat="surrounding" style="display:none">
+      <div class="glabel">— Where are you? —</div>
+      <div class="vgrid">
+        <div class="vcard" data-vibe="rain" data-cat="surrounding" data-query="rain ambient instrumental Indian sitar nature sounds" data-label="Rain" data-emoji="🌧️" style="animation-delay:.04s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1428592953211-077101b2021b?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">🌧️</span><div class="vcard-name">Rain</div><div class="vcard-sub">Water · Grey · Petrichor</div></div>
         </div>
-        <div class="vcard" data-vibe="cafe" style="background-image:url(https://source.unsplash.com/featured/300x500/?coffee,warm,wood,cozy);background-size:cover;background-position:center;" data-query="cafe lofi acoustic instrumental warm" data-label="Café" data-sub="Acoustic · Warm · Cozy" data-emoji="☕" style="animation-delay:.1s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">☕</div>
-            <div>
-              <div class="vcard-name">Café</div>
-              <div class="vcard-sub">Acoustic · Warm · Cozy</div>
-            </div>
-          </div>
+        <div class="vcard" data-vibe="cafe" data-cat="surrounding" data-query="cafe lofi acoustic instrumental background warm cozy" data-label="Café" data-emoji="☕" style="animation-delay:.08s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">☕</span><div class="vcard-name">Café</div><div class="vcard-sub">Acoustic · Warm · Cozy</div></div>
         </div>
-        <div class="vcard" data-vibe="nature" style="background-image:url(https://source.unsplash.com/featured/300x500/?forest,leaves,green,birds);background-size:cover;background-position:center;" data-query="forest flute birds nature instrumental" data-label="Nature" data-sub="Forest · Birds · Open air" data-emoji="🌲" style="animation-delay:.15s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">🌲</div>
-            <div>
-              <div class="vcard-name">Nature</div>
-              <div class="vcard-sub">Forest · Birds · Open air</div>
-            </div>
-          </div>
+        <div class="vcard" data-vibe="nature" data-cat="surrounding" data-query="nature forest flute birds outdoor instrumental ambient" data-label="Nature" data-emoji="🌲" style="animation-delay:.12s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">🌲</span><div class="vcard-name">Nature</div><div class="vcard-sub">Forest · Birds · Open air</div></div>
         </div>
-        <div class="vcard" data-vibe="space" style="background-image:url(https://source.unsplash.com/featured/300x500/?galaxy,stars,cosmos,deep);background-size:cover;background-position:center;" data-query="cosmic space ambient drone instrumental" data-label="Space" data-sub="Cosmic · Deep · Infinite" data-emoji="🌌" style="animation-delay:.2s">
-          <div class="vcard-inner">
-            <div class="vcard-emoji">🌌</div>
-            <div>
-              <div class="vcard-name">Space</div>
-              <div class="vcard-sub">Cosmic · Deep · Infinite</div>
-            </div>
-          </div>
+        <div class="vcard" data-vibe="space" data-cat="surrounding" data-query="space ambient cosmic drone deep meditation instrumental" data-label="Space" data-emoji="🌌" style="animation-delay:.16s">
+          <div class="vcard-bg" style="background-image:url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=400&q=70&fit=crop')"></div>
+          <div class="vcard-ov"></div>
+          <div class="vcard-body"><span class="vcard-emoji">🌌</span><div class="vcard-name">Space</div><div class="vcard-sub">Cosmic · Infinite · Deep</div></div>
         </div>
       </div>
     </div>
 
-  </div><!-- /grid-wrap -->
+  </div><!-- /gwrap -->
 
   <div class="divider"></div>
 
-  <!-- Song panel -->
   <div id="songPanel">
-    <div class="panel-header">
-      <div class="panel-title" id="panelTitle">Peaceful</div>
-      <button class="panel-close" id="panelClose">✕</button>
+    <div class="phead">
+      <div class="ptitle" id="panelTitle">—</div>
+      <button class="pclose" id="panelClose">✕</button>
     </div>
     <div id="songList"></div>
   </div>
-
-</div><!-- /app -->
+</div>
 
 <!-- PLAYER -->
 <div id="player">
-  <div class="player-handle" id="playerHandle"></div>
+  <div class="phandle" id="phandle"></div>
   <div class="pmini" id="pmini">
-    <div class="p-art" id="pArt">🎵</div>
-    <div class="p-meta">
-      <div class="p-title" id="pTitle">Choose a vibe</div>
-      <div class="p-sub" id="pSub">SwarShanti</div>
+    <div class="part" id="pArt">🎵</div>
+    <div class="pmeta2">
+      <div class="ptit" id="pTitle">Choose a vibe</div>
+      <div class="psub2" id="pSub">SwarShanti · स्वरशांति</div>
     </div>
-    <div class="p-ctrl">
+    <div class="pctrl">
       <button class="pb" id="prevB">⏮</button>
       <button class="pb pp" id="ppB">▶</button>
       <button class="pb" id="nextB">⏭</button>
@@ -744,47 +362,84 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
     </div>
   </div>
   <div class="pexp" id="pexp">
-    <div class="p-bigart" id="pBigArt">🎵</div>
-    <div class="p-bigtitle" id="pBigTitle">—</div>
-    <div class="p-bigsub" id="pBigSub">—</div>
+    <div class="pbigart" id="pBigArt">🎵</div>
+    <div class="pbigtit" id="pBigTitle">—</div>
+    <div class="pbigsub" id="pBigSub">—</div>
     <audio id="audioEl" controls preload="auto"></audio>
-    <div class="sleep-row" id="sleepRow">
-      <span style="font-size:10px;color:var(--dim);align-self:center;letter-spacing:0.06em;">SLEEP TIMER</span>
-      <button class="sleep-btn" data-mins="15">15 min</button>
-      <button class="sleep-btn" data-mins="30">30 min</button>
-      <button class="sleep-btn" data-mins="60">60 min</button>
-      <button class="sleep-btn" data-mins="0">Off</button>
+    <div class="sleepr">
+      <span class="sleepl">Sleep Timer</span>
+      <button class="sleepbtn" data-mins="15">15m</button>
+      <button class="sleepbtn" data-mins="30">30m</button>
+      <button class="sleepbtn" data-mins="60">1hr</button>
+      <button class="sleepbtn" data-mins="0">Off</button>
     </div>
-    <div class="p-btns">
+    <div class="pbtns">
       <button class="pbtn2" id="favB">♡ Save</button>
       <button class="pbtn2" id="shareB">↗ Share</button>
-      <button class="pbtn2 gold" id="saavnB">♪ Stream</button>
     </div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-// ── CONFIG ────────────────────────────────────────────────────
 const API = 'https://jiosawanapi.vercel.app/api';
 const FAV_KEY = 'sw_favs';
 
-// ── STATE ─────────────────────────────────────────────────────
-let songs = [], idx = -1, expanded = false;
-let favs = JSON.parse(localStorage.getItem(FAV_KEY)||'[]');
-let cache = {};
-let sleepTimer = null, activeVibe = null;
-const audio = document.getElementById('audioEl');
+let songs=[], idx=-1, expanded=false, sleepTimer=null, activeVibe=null;
+let favs=JSON.parse(localStorage.getItem(FAV_KEY)||'[]');
+let cache={};
+const audio=document.getElementById('audioEl');
 
-// ── CATEGORY SWITCHING ────────────────────────────────────────
-document.querySelectorAll('.cat-btn').forEach(btn => {
+// ── PARSE API RESPONSE ─────────────────────────────────────────
+// Handles multiple possible response shapes from the API
+function parseSongs(data) {
+  let raw = data?.data?.results || data?.data || data?.results || data?.songs || [];
+  if (!Array.isArray(raw)) raw = [];
+  return raw.map(s => {
+    // image — try multiple fields
+    let img = '';
+    if (Array.isArray(s.image)) {
+      img = s.image.find(i=>i.quality==='500x500')?.url || s.image[s.image.length-1]?.url || '';
+    } else if (typeof s.image === 'string') {
+      img = s.image;
+    }
+    img = img.replace('http://', 'https://');
+
+    // stream URL — try multiple fields, prefer higher quality
+    let url = '';
+    if (Array.isArray(s.downloadUrl)) {
+      const best = s.downloadUrl.find(u=>u.quality==='320kbps') ||
+                   s.downloadUrl.find(u=>u.quality==='160kbps') ||
+                   s.downloadUrl[s.downloadUrl.length-1];
+      url = best?.url || '';
+    } else if (s.media_url) {
+      url = s.media_url;
+    } else if (s.downloadUrl && typeof s.downloadUrl === 'string') {
+      url = s.downloadUrl;
+    }
+    url = url.replace('http://', 'https://');
+
+    return {
+      id: s.id || s.songid || '',
+      title: s.name || s.title || s.song || '?',
+      artist: (s.primaryArtists || s.primary_artists || s.singers || s.artist || 'Instrumental').split(',')[0].trim(),
+      album: s.album?.name || (typeof s.album === 'string' ? s.album : '') || '',
+      image: img,
+      url: url,
+      permaUrl: (s.url || s.perma_url || '').replace('http://','https://'),
+      duration: parseInt(s.duration) || 0,
+    };
+  }).filter(s => s.title !== '?');
+}
+
+// ── CATEGORY NAV ──────────────────────────────────────────────
+document.querySelectorAll('.catbtn').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('on'));
+    document.querySelectorAll('.catbtn').forEach(b=>b.classList.remove('on'));
     btn.classList.add('on');
     const cat = btn.dataset.cat;
-    document.querySelectorAll('.vibe-section').forEach(s => {
-      s.style.display = s.dataset.cat === cat ? 'block' : 'none';
+    document.querySelectorAll('.vsec').forEach(s=>{
+      s.style.display = s.dataset.cat===cat ? 'block' : 'none';
     });
     closeSongPanel();
   });
@@ -794,270 +449,227 @@ document.querySelectorAll('.cat-btn').forEach(btn => {
 document.querySelectorAll('.vcard').forEach(card => {
   card.addEventListener('click', () => {
     const vibe = card.dataset.vibe;
-    if (activeVibe === vibe) { closeSongPanel(); return; }
-
-    document.querySelectorAll('.vcard').forEach(c => c.classList.remove('active'));
+    if (activeVibe===vibe) { closeSongPanel(); return; }
+    document.querySelectorAll('.vcard').forEach(c=>c.classList.remove('active'));
     card.classList.add('active');
     activeVibe = vibe;
-
-    const label = card.dataset.label;
     const emoji = card.dataset.emoji;
-    const query = card.dataset.query;
-
-    document.getElementById('panelTitle').innerHTML =
-      `<span style="margin-right:8px">${emoji}</span>${label}`;
+    const label = card.dataset.label;
+    document.getElementById('panelTitle').innerHTML = `<span style="margin-right:8px">${emoji}</span>${label}`;
     openSongPanel();
-    loadSongs(query, vibe);
-    updateAmbient(card.dataset.vibe);
+    loadSongs(card.dataset.query, vibe);
+    updateAmbient(vibe);
   });
 });
 
-function openSongPanel() {
-  const panel = document.getElementById('songPanel');
-  panel.classList.add('open');
-  setTimeout(() => panel.scrollIntoView({behavior:'smooth', block:'start'}), 100);
+function openSongPanel(){
+  const p=document.getElementById('songPanel');
+  p.classList.add('open');
+  setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'start'}),120);
 }
-function closeSongPanel() {
+function closeSongPanel(){
   document.getElementById('songPanel').classList.remove('open');
-  document.querySelectorAll('.vcard').forEach(c => c.classList.remove('active'));
-  activeVibe = null;
+  document.querySelectorAll('.vcard').forEach(c=>c.classList.remove('active'));
+  activeVibe=null;
 }
-document.getElementById('panelClose').addEventListener('click', closeSongPanel);
+document.getElementById('panelClose').addEventListener('click',closeSongPanel);
 
-// ── AMBIENT BACKGROUND ────────────────────────────────────────
-const ambientMap = {
-  peaceful:    ['rgba(12,60,30,0.7)', 'rgba(10,20,40,0.5)', '#1aff8a', '#40a0ff'],
-  romantic:    ['rgba(60,12,28,0.7)', 'rgba(40,8,20,0.5)',  '#ff4d8a', '#ff8060'],
-  melancholic: ['rgba(10,20,55,0.7)', 'rgba(8,15,40,0.5)',  '#4d8aff', '#a060ff'],
-  energetic:   ['rgba(55,28,8,0.7)',  'rgba(40,18,5,0.5)',  '#ffaa1a', '#ff6040'],
-  morning:     ['rgba(55,45,8,0.7)',  'rgba(40,32,5,0.5)',  '#ffd060', '#ffaa40'],
-  afternoon:   ['rgba(20,50,10,0.7)', 'rgba(15,38,8,0.5)',  '#70d060', '#40e080'],
-  evening:     ['rgba(55,20,8,0.7)',  'rgba(40,12,5,0.5)',  '#ff7040', '#ffaa20'],
-  latenight:   ['rgba(5,5,40,0.7)',   'rgba(3,3,28,0.5)',   '#6060ff', '#a040ff'],
-  focused:     ['rgba(8,8,50,0.7)',   'rgba(5,5,35,0.5)',   '#40c0ff', '#60a0ff'],
-  relaxed:     ['rgba(8,45,35,0.7)',  'rgba(5,32,25,0.5)',  '#40ffb0', '#20d090'],
-  sleepy:      ['rgba(20,8,45,0.7)',  'rgba(14,5,32,0.5)',  '#a060ff', '#6040ff'],
-  motivated:   ['rgba(48,20,5,0.7)',  'rgba(35,14,3,0.5)',  '#ff8040', '#ffaa20'],
-  rain:        ['rgba(8,20,40,0.7)',  'rgba(5,14,28,0.5)',  '#60a0ff', '#4080d0'],
-  cafe:        ['rgba(40,28,8,0.7)',  'rgba(28,20,5,0.5)',  '#c08040', '#e0a060'],
-  nature:      ['rgba(8,40,18,0.7)',  'rgba(5,28,12,0.5)',  '#40c060', '#60e040'],
-  space:       ['rgba(3,3,20,0.7)',   'rgba(2,2,14,0.5)',   '#8040ff', '#4020c0'],
+// ── AMBIENT ───────────────────────────────────────────────────
+const amap={
+  peaceful:    [['rgba(10,50,28,0.7)','rgba(8,22,38,0.5)'],'#4a9e7a','#407a9e'],
+  romantic:    [['rgba(50,14,28,0.7)','rgba(35,8,18,0.5)'],'#9e5a70','#7a4055'],
+  melancholic: [['rgba(10,18,55,0.7)','rgba(8,14,40,0.5)'],'#5a7a9e','#406080'],
+  energetic:   [['rgba(50,30,8,0.7)','rgba(38,20,5,0.5)'],'#9e7a4a','#8a6030'],
+  morning:     [['rgba(50,40,8,0.7)','rgba(38,30,5,0.5)'],'#b8945a','#c8a030'],
+  afternoon:   [['rgba(16,48,10,0.7)','rgba(12,36,8,0.5)'],'#6a9e5a','#508a40'],
+  evening:     [['rgba(50,18,8,0.7)','rgba(38,12,5,0.5)'],'#9e6a4a','#c05030'],
+  latenight:   [['rgba(5,5,40,0.7)','rgba(3,3,28,0.5)'],'#5a5a9e','#4040c0'],
+  focused:     [['rgba(8,12,48,0.7)','rgba(6,9,35,0.5)'],'#4a7a9e','#3060b0'],
+  relaxed:     [['rgba(8,42,35,0.7)','rgba(6,30,25,0.5)'],'#4a9e8a','#309e70'],
+  sleepy:      [['rgba(18,8,42,0.7)','rgba(14,5,32,0.5)'],'#7a5a9e','#604090'],
+  motivated:   [['rgba(45,18,8,0.7)','rgba(35,12,5,0.5)'],'#9e6a4a','#c05020'],
+  rain:        [['rgba(8,16,42,0.7)','rgba(6,12,32,0.5)'],'#4a6a9e','#3050a0'],
+  cafe:        [['rgba(42,28,8,0.7)','rgba(32,20,5,0.5)'],'#9e7a4a','#c09030'],
+  nature:      [['rgba(8,42,16,0.7)','rgba(6,30,12,0.5)'],'#4a8a5a','#308040'],
+  space:       [['rgba(4,4,20,0.7)','rgba(3,3,14,0.5)'],'#5a4a8a','#3020a0'],
 };
-
-function updateAmbient(vibe) {
-  const [c1, c2, o1, o2] = ambientMap[vibe] || ambientMap.peaceful;
-  document.getElementById('ambientBg').style.background =
-    `radial-gradient(ellipse 80% 60% at 20% 20%, ${c1} 0%, transparent 70%),
-     radial-gradient(ellipse 60% 80% at 80% 80%, ${c2} 0%, transparent 70%),
-     var(--ink)`;
-  document.getElementById('orb1').style.background = o1;
-  document.getElementById('orb2').style.background = o2;
+function updateAmbient(v){
+  const [grad,c1,c2]=amap[v]||amap.peaceful;
+  document.getElementById('ambientBg').style.background=
+    `radial-gradient(ellipse 80% 60% at 15% 15%,${grad[0]} 0%,transparent 65%),
+     radial-gradient(ellipse 60% 70% at 85% 85%,${grad[1]} 0%,transparent 65%),var(--ink)`;
+  document.getElementById('o1').style.background=c1;
+  document.getElementById('o2').style.background=c2;
 }
 
 // ── LOAD SONGS ────────────────────────────────────────────────
 async function loadSongs(query, vibe) {
   if (cache[vibe]) { renderSongs(cache[vibe]); return; }
-  renderSkeletons();
+  renderSkel();
   try {
     const r = await fetch(`${API}/search/songs?query=${encodeURIComponent(query)}&limit=12`);
-    if (!r.ok) throw new Error(`${r.status}`);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const data = await r.json();
-    const results = data?.data?.results || data?.results || [];
-    const mapped = results.map(s => ({
-      id: s.id,
-      title: s.name || s.title || '?',
-      artist: (s.primaryArtists || s.primary_artists || '').split(',')[0].trim() || 'Instrumental',
-      album: s.album?.name || s.album || '',
-      image: (Array.isArray(s.image) ? s.image[2]?.url || s.image[1]?.url : s.image || '')
-              .replace('150x150','500x500'),
-      url: Array.isArray(s.downloadUrl)
-        ? s.downloadUrl[4]?.url || s.downloadUrl[3]?.url || s.downloadUrl[0]?.url
-        : s.media_url || '',
-      saavnUrl: s.url || s.perma_url || '',
-      duration: s.duration || 0,
-    }));
+    const mapped = parseSongs(data);
+    if (!mapped.length) throw new Error('No results');
     cache[vibe] = mapped;
     renderSongs(mapped);
   } catch(e) {
-    document.getElementById('songList').innerHTML =
-      `<div class="empty"><div class="empty-icon">✦</div>
-       <p>Could not load songs.<br/><small style="color:var(--dim)">${e.message}</small></p></div>`;
+    document.getElementById('songList').innerHTML=
+      `<div class="empty"><p>Could not load songs.<br/><small style="color:var(--dim)">${e.message}</small></p></div>`;
   }
 }
 
-function renderSkeletons() {
-  document.getElementById('songList').innerHTML =
-    `<div class="slist">${Array(8).fill(0).map((_,i)=>`
-      <div style="display:flex;align-items:center;gap:14px;padding:11px 14px;animation-delay:${i*.04}s">
-        <div style="width:24px;"></div>
-        <div class="shimmer" style="width:48px;height:48px;border-radius:12px;flex-shrink:0;"></div>
-        <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
-          <div class="shimmer" style="height:11px;border-radius:5px;width:${50+Math.random()*35}%"></div>
-          <div class="shimmer" style="height:9px;border-radius:5px;width:${25+Math.random()*25}%"></div>
+function renderSkel(){
+  document.getElementById('songList').innerHTML=`<div class="slist">${
+    Array(8).fill(0).map((_,i)=>`
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;animation-delay:${i*.04}s">
+        <div style="width:22px;"></div>
+        <div class="shimmer" style="width:46px;height:46px;border-radius:10px;flex-shrink:0;"></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:7px;">
+          <div class="shimmer" style="height:11px;border-radius:5px;width:${48+Math.random()*38}%"></div>
+          <div class="shimmer" style="height:9px;border-radius:5px;width:${24+Math.random()*28}%"></div>
         </div>
-      </div>`).join('')}</div>`;
+      </div>`).join('')
+  }</div>`;
 }
 
-function renderSongs(list) {
-  songs = list;
-  if (!list.length) {
-    document.getElementById('songList').innerHTML =
-      `<div class="empty"><div class="empty-icon">✦</div><p>No instrumentals found for this vibe.</p></div>`;
+function fmt(s){if(!s)return'';const m=Math.floor(s/60),ss=s%60;return`${m}:${ss.toString().padStart(2,'0')}`;}
+
+function renderSongs(list){
+  songs=list;
+  if(!list.length){
+    document.getElementById('songList').innerHTML='<div class="empty"><p>No tracks found for this vibe.</p></div>';
     return;
   }
-  function fmt(s){const m=Math.floor(s/60),ss=s%60;return`${m}:${ss.toString().padStart(2,'0')}`;}
-  document.getElementById('songList').innerHTML = `
-    <div class="slist">
-      ${list.map((s,i) => `
-        <div class="srow" data-i="${i}" style="animation-delay:${i*.03}s">
-          <div class="snum">${i+1}</div>
-          <div class="sbars"><span></span><span></span><span></span><span></span></div>
-          ${s.image
-            ? `<div class="row-art"><img src="${s.image}" alt="${s.title}" loading="lazy"
-                onerror="this.parentNode.innerHTML='🎵'"/></div>`
-            : `<div class="row-art">🎵</div>`}
-          <div class="srow-meta">
-            <div class="srow-title">${s.title}</div>
-            <div class="srow-sub">${s.artist}${s.album?' · '+s.album:''}</div>
-          </div>
-          ${s.duration?`<div class="srow-dur">${fmt(s.duration)}</div>`:''}
-        </div>`).join('')}
-    </div>`;
-  document.querySelectorAll('.srow').forEach(el =>
-    el.addEventListener('click', () => playSong(+el.dataset.i)));
+  document.getElementById('songList').innerHTML=`<div class="slist">${
+    list.map((s,i)=>`
+      <div class="srow" data-i="${i}" style="animation-delay:${i*.025}s">
+        <div class="snum">${i+1}</div>
+        <div class="sbars"><span></span><span></span><span></span><span></span></div>
+        ${s.image
+          ?`<div class="rart"><img src="${s.image}" alt="" loading="lazy" onerror="this.parentNode.innerHTML='🎵'"/></div>`
+          :`<div class="rart">🎵</div>`}
+        <div class="rmeta">
+          <div class="rtitle">${s.title}</div>
+          <div class="rsub">${s.artist}${s.album?' · '+s.album:''}</div>
+        </div>
+        ${s.duration?`<div class="rdur">${fmt(s.duration)}</div>`:''}
+      </div>`).join('')
+  }</div>`;
+  document.querySelectorAll('.srow').forEach(el=>el.addEventListener('click',()=>playSong(+el.dataset.i)));
 }
 
 // ── PLAY ──────────────────────────────────────────────────────
-async function playSong(i) {
-  const s = songs[i]; if (!s) return;
-  idx = i;
-
-  const thumb = s.image || '';
-  document.getElementById('pArt').innerHTML =
-    thumb ? `<img src="${thumb}" alt="" onerror="this.parentNode.innerHTML='🎵'"/>` : '🎵';
-  document.getElementById('pBigArt').innerHTML =
-    thumb ? `<img src="${thumb}" alt="" onerror="this.parentNode.innerHTML='🎵'"/>` : '🎵';
-  document.getElementById('pTitle').textContent = s.title;
-  document.getElementById('pSub').textContent = s.artist + (s.album ? ' · ' + s.album : '');
-  document.getElementById('pBigTitle').textContent = s.title;
-  document.getElementById('pBigSub').textContent = (s.artist + (s.album?' · '+s.album:'')).toUpperCase();
-  document.getElementById('favB').textContent = favs.includes(s.id) ? '♥ Saved' : '♡ Save';
-
+async function playSong(i){
+  const s=songs[i]; if(!s) return;
+  idx=i;
+  const t=s.image||'';
+  const setThumb=(el,big)=>{
+    el.innerHTML=t?`<img src="${t}" alt="" onerror="this.parentNode.innerHTML='🎵'"/>`:'🎵';
+  };
+  setThumb(document.getElementById('pArt'));
+  setThumb(document.getElementById('pBigArt'));
+  document.getElementById('pTitle').textContent=s.title;
+  document.getElementById('pSub').textContent=s.artist+(s.album?' · '+s.album:'');
+  document.getElementById('pBigTitle').textContent=s.title;
+  document.getElementById('pBigSub').textContent=(s.artist+(s.album?' · '+s.album:'')).toUpperCase();
+  document.getElementById('favB').textContent=favs.includes(s.id)?'♥ Saved':'♡ Save';
   document.getElementById('player').classList.add('open');
-  if (!expanded) toggleExp();
+  if(!expanded) toggleExp();
 
-  if (s.url) {
-    audio.src = s.url;
+  if(s.url){
+    audio.src=s.url;
     audio.play().catch(()=>{});
-    document.getElementById('ppB').textContent = '⏸';
+    document.getElementById('ppB').textContent='⏸';
   } else {
     showToast('Fetching stream…');
-    try {
-      const r = await fetch(`${API}/songs?id=${s.id}`);
-      const data = await r.json();
-      const song = data?.data?.[0] || data?.data || data;
-      const url = song?.downloadUrl?.[4]?.url || song?.downloadUrl?.[3]?.url || song?.media_url || '';
-      if (url) { s.url = url; audio.src = url; audio.play().catch(()=>{}); document.getElementById('ppB').textContent = '⏸'; }
-      else showToast('Stream unavailable — try another');
-    } catch(e) { showToast('Could not load song'); }
+    try{
+      const r=await fetch(`${API}/songs?id=${s.id}`);
+      const d=await r.json();
+      const song=Array.isArray(d?.data)?d.data[0]:(d?.data||d);
+      let url='';
+      if(Array.isArray(song?.downloadUrl)){
+        const best=song.downloadUrl.find(u=>u.quality==='320kbps')||song.downloadUrl[song.downloadUrl.length-1];
+        url=best?.url||'';
+      } else { url=song?.media_url||''; }
+      url=url.replace('http://','https://');
+      if(url){s.url=url;audio.src=url;audio.play().catch(()=>{});document.getElementById('ppB').textContent='⏸';}
+      else showToast('Stream not available — try next');
+    }catch(e){showToast('Could not load song');}
   }
-
-  document.querySelectorAll('.srow').forEach(el =>
-    el.classList.toggle('on', +el.dataset.i === i));
+  document.querySelectorAll('.srow').forEach(el=>el.classList.toggle('on',+el.dataset.i===i));
 }
 
-audio.addEventListener('ended', () => { if(idx < songs.length-1) playSong(idx+1); });
+audio.addEventListener('ended',()=>{if(idx<songs.length-1)playSong(idx+1);});
 
-// ── PLAYER CONTROLS ───────────────────────────────────────────
-document.getElementById('prevB').addEventListener('click', e => { e.stopPropagation(); if(idx>0) playSong(idx-1); });
-document.getElementById('nextB').addEventListener('click', e => { e.stopPropagation(); if(idx<songs.length-1) playSong(idx+1); });
-document.getElementById('ppB').addEventListener('click', e => {
+document.getElementById('prevB').addEventListener('click',e=>{e.stopPropagation();if(idx>0)playSong(idx-1);});
+document.getElementById('nextB').addEventListener('click',e=>{e.stopPropagation();if(idx<songs.length-1)playSong(idx+1);});
+document.getElementById('ppB').addEventListener('click',e=>{
   e.stopPropagation();
-  if (audio.paused) { audio.play(); document.getElementById('ppB').textContent='⏸'; }
-  else { audio.pause(); document.getElementById('ppB').textContent='▶'; }
+  if(audio.paused){audio.play();document.getElementById('ppB').textContent='⏸';}
+  else{audio.pause();document.getElementById('ppB').textContent='▶';}
 });
 
 function toggleExp(){
   expanded=!expanded;
   document.getElementById('pexp').classList.toggle('on',expanded);
-  document.getElementById('expB').textContent = expanded ? '↓' : '↑';
+  document.getElementById('expB').textContent=expanded?'↓':'↑';
 }
 document.getElementById('expB').addEventListener('click',e=>{e.stopPropagation();toggleExp();});
-document.getElementById('playerHandle').addEventListener('click',toggleExp);
+document.getElementById('phandle').addEventListener('click',toggleExp);
 document.getElementById('pmini').addEventListener('click',toggleExp);
 
-// ── SLEEP TIMER ───────────────────────────────────────────────
-document.querySelectorAll('.sleep-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.sleep-btn').forEach(b=>b.classList.remove('on'));
-    if (sleepTimer) { clearTimeout(sleepTimer); sleepTimer=null; }
-    const mins = +btn.dataset.mins;
-    if (mins > 0) {
+// sleep timer
+document.querySelectorAll('.sleepbtn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.sleepbtn').forEach(b=>b.classList.remove('on'));
+    if(sleepTimer){clearTimeout(sleepTimer);sleepTimer=null;}
+    const m=+btn.dataset.mins;
+    if(m>0){
       btn.classList.add('on');
-      showToast(`Sleep timer: ${mins} min`);
-      sleepTimer = setTimeout(() => {
-        audio.pause();
-        document.getElementById('ppB').textContent='▶';
+      showToast(`Sleep timer: ${m} min`);
+      sleepTimer=setTimeout(()=>{
+        audio.pause();document.getElementById('ppB').textContent='▶';
         showToast('Sleep timer ended 🌙');
-        document.querySelectorAll('.sleep-btn').forEach(b=>b.classList.remove('on'));
-      }, mins * 60000);
-    } else {
-      showToast('Sleep timer off');
-    }
+        document.querySelectorAll('.sleepbtn').forEach(b=>b.classList.remove('on'));
+      },m*60000);
+    } else showToast('Sleep timer off');
   });
 });
 
-// ── FAVOURITES & SHARE ────────────────────────────────────────
-document.getElementById('favB').addEventListener('click', () => {
-  const s = songs[idx]; if(!s) return;
-  const i = favs.indexOf(s.id);
+document.getElementById('favB').addEventListener('click',()=>{
+  const s=songs[idx];if(!s)return;
+  const i=favs.indexOf(s.id);
   if(i>=0){favs.splice(i,1);document.getElementById('favB').textContent='♡ Save';}
   else{favs.push(s.id);document.getElementById('favB').textContent='♥ Saved';}
-  localStorage.setItem(FAV_KEY, JSON.stringify(favs));
-  showToast(i>=0 ? 'Removed from saved':'Added to saved ♥');
+  localStorage.setItem(FAV_KEY,JSON.stringify(favs));
+  showToast(i>=0?'Removed from saved':'Saved ♥');
 });
-document.getElementById('shareB').addEventListener('click', () => {
-  const s=songs[idx]; if(!s) return;
-  const url=s.saavnUrl||`https://www.jiosaavn.com/search/${encodeURIComponent(s.title)}`;
-  if(navigator.share) navigator.share({title:s.title,text:s.artist,url});
-  else{navigator.clipboard?.writeText(url);showToast('Link copied');}
-});
-document.getElementById('saavnB').addEventListener('click',()=>{
-  const s=songs[idx]; if(!s) return;
-  window.open(s.saavnUrl||`https://www.jiosaavn.com/search/${encodeURIComponent(s.title)}`,'_blank');
+document.getElementById('shareB').addEventListener('click',()=>{
+  const s=songs[idx];if(!s)return;
+  if(navigator.share)navigator.share({title:s.title,text:s.artist});
+  else{navigator.clipboard?.writeText(s.title+' - '+s.artist);showToast('Copied to clipboard');}
 });
 
-// ── SEARCH ────────────────────────────────────────────────────
+// search
 let st;
-document.getElementById('searchInput').addEventListener('input', e => {
-  const q = e.target.value.trim();
-  document.getElementById('clearBtn').style.display = q ? 'block' : 'none';
+document.getElementById('searchInput').addEventListener('input',e=>{
+  const q=e.target.value.trim();
+  document.getElementById('clearBtn').style.display=q?'block':'none';
   clearTimeout(st);
-  if (!q) return;
-  st = setTimeout(async () => {
+  if(!q)return;
+  st=setTimeout(async()=>{
     closeSongPanel();
-    // Show search results in panel with a special label
-    document.getElementById('panelTitle').innerHTML = `✦ Results for "${q}"`;
-    openSongPanel();
-    renderSkeletons();
-    try {
-      const r = await fetch(`${API}/search/songs?query=${encodeURIComponent(q+' instrumental')}&limit=15`);
-      const data = await r.json();
-      const results = data?.data?.results || data?.results || [];
-      const mapped = results.map(s => ({
-        id: s.id,
-        title: s.name || s.title || '?',
-        artist: (s.primaryArtists || s.primary_artists || '').split(',')[0].trim() || 'Instrumental',
-        album: s.album?.name || s.album || '',
-        image: (Array.isArray(s.image)?s.image[2]?.url||s.image[1]?.url:s.image||'').replace('150x150','500x500'),
-        url: Array.isArray(s.downloadUrl)?s.downloadUrl[4]?.url||s.downloadUrl[3]?.url||s.downloadUrl[0]?.url:s.media_url||'',
-        saavnUrl: s.url||s.perma_url||'',
-        duration: s.duration||0,
-      }));
-      songs = mapped;
-      renderSongs(mapped);
-    } catch(e){ showToast('Search error: '+e.message); }
-  }, 450);
+    document.getElementById('panelTitle').innerHTML=`✦ "${q}"`;
+    openSongPanel();renderSkel();
+    try{
+      const r=await fetch(`${API}/search/songs?query=${encodeURIComponent(q+' instrumental')}&limit=15`);
+      const d=await r.json();
+      songs=parseSongs(d);
+      renderSongs(songs);
+    }catch(e){showToast('Search failed');}
+  },480);
 });
 document.getElementById('clearBtn').addEventListener('click',()=>{
   document.getElementById('searchInput').value='';
@@ -1065,13 +677,13 @@ document.getElementById('clearBtn').addEventListener('click',()=>{
   closeSongPanel();
 });
 
-// ── TOAST ─────────────────────────────────────────────────────
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2500);
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
+
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
 </html>
