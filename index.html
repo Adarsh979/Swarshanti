@@ -176,10 +176,10 @@ header{
 }
 .vibe-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  max-width:700px;
-  margin:0 auto 48px;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  max-width:900px;
+  margin:0 auto 32px;
 }
 
 /* ── VIBE CARD ────────────────────────────────────────────── */
@@ -189,7 +189,7 @@ header{
   overflow:hidden;
   cursor:pointer;
   border:1px solid var(--glassborder);
-  aspect-ratio:3/4;
+  aspect-ratio:3/5;
   transition:transform .3s cubic-bezier(.34,1.3,.64,1), box-shadow .3s;
   animation:fadeUp .5s ease both;
 }
@@ -253,31 +253,32 @@ header{
 
 .vcard::after{
   content:'';
-  position:absolute;top:0;left:20%;right:20%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);
-  z-index:2;
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.3) 50%,rgba(0,0,0,0.65) 100%);
+  z-index:0;
+  border-radius:20px;
 }
 .vcard-inner{
   position:relative;z-index:1;
   height:100%;
   display:flex;flex-direction:column;
   justify-content:space-between;
-  padding:22px 18px 20px;
+  padding:14px 12px 14px;
 }
-.vcard-emoji{font-size:38px;margin-bottom:auto;filter:drop-shadow(0 0 8px rgba(255,255,255,0.15));opacity:0.85;}
+.vcard-emoji{font-size:26px;margin-bottom:auto;filter:drop-shadow(0 0 8px rgba(255,255,255,0.15));opacity:0.8;}
 .vcard-name{
   font-family:var(--font-display);
-  font-size:26px;font-weight:300;
+  font-size:18px;font-weight:300;
   letter-spacing:0.03em;
   line-height:1.1;
   color:rgba(255,255,255,0.9);
-  margin-bottom:6px;
+  margin-bottom:4px;
 }
 .vcard-sub{
-  font-size:10px;font-weight:300;
-  letter-spacing:0.12em;text-transform:uppercase;
-  color:rgba(255,255,255,0.3);
-  line-height:1.6;
+  font-size:9px;font-weight:300;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(255,255,255,0.28);
+  line-height:1.5;
 }
 .vcard-count{
   position:absolute;top:14px;right:14px;
@@ -543,7 +544,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
     <div class="vibe-section" data-cat="mood">
       <div class="grid-label">— How are you feeling? —</div>
       <div class="vibe-grid">
-        <div class="vcard" data-vibe="peaceful" data-query="peaceful indian instrumental music sitar flute meditation" data-label="Peaceful" data-sub="Sitar · Flute · Still" data-emoji="🌿" style="animation-delay:.05s">
+        <div class="vcard" data-vibe="peaceful" style="background-image:url(https://source.unsplash.com/featured/300x500/?meditation,lotus,calm,water);background-size:cover;background-position:center;" data-query="sitar flute bansuri instrumental" data-label="Peaceful" data-sub="Sitar · Flute · Still" data-emoji="🌿" style="animation-delay:.05s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🌿</div>
             <div>
@@ -552,7 +553,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="romantic" data-query="romantic instrumental violin piano bollywood" data-label="Romantic" data-sub="Violin · Sarangi · Warm" data-emoji="🌹" style="animation-delay:.1s">
+        <div class="vcard" data-vibe="romantic" style="background-image:url(https://source.unsplash.com/featured/300x500/?rose,candle,soft,dusk);background-size:cover;background-position:center;" data-query="violin instrumental love romantic bollywood" data-label="Romantic" data-sub="Violin · Sarangi · Warm" data-emoji="🌹" style="animation-delay:.1s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🌹</div>
             <div>
@@ -561,7 +562,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="melancholic" data-query="melancholic indian instrumental sarod sad classical" data-label="Melancholic" data-sub="Sarod · Strings · Longing" data-emoji="🌧️" style="animation-delay:.15s">
+        <div class="vcard" data-vibe="melancholic" style="background-image:url(https://source.unsplash.com/featured/300x500/?rain,window,misty,grey);background-size:cover;background-position:center;" data-query="sarod instrumental sad classical indian" data-label="Melancholic" data-sub="Sarod · Strings · Longing" data-emoji="🌧️" style="animation-delay:.15s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🌧️</div>
             <div>
@@ -570,7 +571,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="energetic" data-query="energetic instrumental fusion tabla Indian upbeat" data-label="Energetic" data-sub="Tabla · Dhol · Fire" data-emoji="🔥" style="animation-delay:.2s">
+        <div class="vcard" data-vibe="energetic" style="background-image:url(https://source.unsplash.com/featured/300x500/?fire,drumming,festival,dance);background-size:cover;background-position:center;" data-query="tabla dhol fusion beats instrumental" data-label="Energetic" data-sub="Tabla · Dhol · Fire" data-emoji="🔥" style="animation-delay:.2s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🔥</div>
             <div>
@@ -586,7 +587,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
     <div class="vibe-section" data-cat="time" style="display:none">
       <div class="grid-label">— What time is it? —</div>
       <div class="vibe-grid">
-        <div class="vcard" data-vibe="morning" data-query="morning raga bhairav indian classical sunrise instrumental" data-label="Morning" data-sub="Raga Bhairav · Dawn" data-emoji="🌅" style="animation-delay:.05s">
+        <div class="vcard" data-vibe="morning" style="background-image:url(https://source.unsplash.com/featured/300x500/?sunrise,dawn,mist,forest);background-size:cover;background-position:center;" data-query="raga bhairav morning instrumental classical" data-label="Morning" data-sub="Raga Bhairav · Dawn" data-emoji="🌅" style="animation-delay:.05s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🌅</div>
             <div>
@@ -595,7 +596,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="afternoon" data-query="afternoon raga bhimpalasi indian classical midday instrumental" data-label="Afternoon" data-sub="Raga Bhimpalasi · Midday" data-emoji="☀️" style="animation-delay:.1s">
+        <div class="vcard" data-vibe="afternoon" style="background-image:url(https://source.unsplash.com/featured/300x500/?sunlight,garden,green,open);background-size:cover;background-position:center;" data-query="raga bhimpalasi afternoon instrumental" data-label="Afternoon" data-sub="Raga Bhimpalasi · Midday" data-emoji="☀️" style="animation-delay:.1s">
           <div class="vcard-inner">
             <div class="vcard-emoji">☀️</div>
             <div>
@@ -604,7 +605,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="evening" data-query="evening raga yaman puriya indian classical sunset instrumental" data-label="Evening" data-sub="Raga Yaman · Dusk" data-emoji="🌆" style="animation-delay:.15s">
+        <div class="vcard" data-vibe="evening" style="background-image:url(https://source.unsplash.com/featured/300x500/?sunset,orange,dusk,twilight);background-size:cover;background-position:center;" data-query="raga yaman evening instrumental" data-label="Evening" data-sub="Raga Yaman · Dusk" data-emoji="🌆" style="animation-delay:.15s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🌆</div>
             <div>
@@ -613,7 +614,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="latenight" data-query="late night raga bhairavi darbari indian classical midnight instrumental" data-label="Late Night" data-sub="Raga Darbari · Midnight" data-emoji="🌙" style="animation-delay:.2s">
+        <div class="vcard" data-vibe="latenight" style="background-image:url(https://source.unsplash.com/featured/300x500/?stars,night,moon,dark);background-size:cover;background-position:center;" data-query="raga darbari midnight instrumental" data-label="Late Night" data-sub="Raga Darbari · Midnight" data-emoji="🌙" style="animation-delay:.2s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🌙</div>
             <div>
@@ -629,7 +630,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
     <div class="vibe-section" data-cat="feel" style="display:none">
       <div class="grid-label">— What do you need? —</div>
       <div class="vibe-grid">
-        <div class="vcard" data-vibe="focused" data-query="focus study instrumental indian classical minimalist concentration" data-label="Focused" data-sub="Minimal · No distraction" data-emoji="🎯" style="animation-delay:.05s">
+        <div class="vcard" data-vibe="focused" style="background-image:url(https://source.unsplash.com/featured/300x500/?desk,minimal,lamp,study);background-size:cover;background-position:center;" data-query="focus study instrumental concentration piano" data-label="Focused" data-sub="Minimal · No distraction" data-emoji="🎯" style="animation-delay:.05s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🎯</div>
             <div>
@@ -638,7 +639,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="relaxed" data-query="relax instrumental indian lofi chill bansuri flute calm" data-label="Relaxed" data-sub="Bansuri · Lofi · Easy" data-emoji="🛋️" style="animation-delay:.1s">
+        <div class="vcard" data-vibe="relaxed" style="background-image:url(https://source.unsplash.com/featured/300x500/?hammock,nature,breeze,soft);background-size:cover;background-position:center;" data-query="bansuri flute lofi chill instrumental" data-label="Relaxed" data-sub="Bansuri · Lofi · Easy" data-emoji="🛋️" style="animation-delay:.1s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🛋️</div>
             <div>
@@ -647,7 +648,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="sleepy" data-query="sleep instrumental indian meditation drone slow ambient" data-label="Sleepy" data-sub="Drone · Slow · Drift" data-emoji="😴" style="animation-delay:.15s">
+        <div class="vcard" data-vibe="sleepy" style="background-image:url(https://source.unsplash.com/featured/300x500/?moon,clouds,soft,night);background-size:cover;background-position:center;" data-query="sleep meditation drone ambient instrumental" data-label="Sleepy" data-sub="Drone · Slow · Drift" data-emoji="😴" style="animation-delay:.15s">
           <div class="vcard-inner">
             <div class="vcard-emoji">😴</div>
             <div>
@@ -656,7 +657,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="motivated" data-query="motivation instrumental indian fusion uplifting energetic beats" data-label="Motivated" data-sub="Fusion · Uplifting · Drive" data-emoji="⚡" style="animation-delay:.2s">
+        <div class="vcard" data-vibe="motivated" style="background-image:url(https://source.unsplash.com/featured/300x500/?mountain,summit,sky,horizon);background-size:cover;background-position:center;" data-query="uplifting motivation instrumental beats" data-label="Motivated" data-sub="Fusion · Uplifting · Drive" data-emoji="⚡" style="animation-delay:.2s">
           <div class="vcard-inner">
             <div class="vcard-emoji">⚡</div>
             <div>
@@ -672,7 +673,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
     <div class="vibe-section" data-cat="surrounding" style="display:none">
       <div class="grid-label">— Where are you? —</div>
       <div class="vibe-grid">
-        <div class="vcard" data-vibe="rain" data-query="rain instrumental indian ambient nature water sounds sitar" data-label="Rain" data-sub="Water · Petrichor · Grey" data-emoji="🌧️" style="animation-delay:.05s">
+        <div class="vcard" data-vibe="rain" style="background-image:url(https://source.unsplash.com/featured/300x500/?rain,drops,window,grey);background-size:cover;background-position:center;" data-query="rain ambient instrumental sitar nature" data-label="Rain" data-sub="Water · Petrichor · Grey" data-emoji="🌧️" style="animation-delay:.05s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🌧️</div>
             <div>
@@ -681,7 +682,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="cafe" data-query="cafe background instrumental indian lofi acoustic warm cozy" data-label="Café" data-sub="Acoustic · Warm · Cozy" data-emoji="☕" style="animation-delay:.1s">
+        <div class="vcard" data-vibe="cafe" style="background-image:url(https://source.unsplash.com/featured/300x500/?coffee,warm,wood,cozy);background-size:cover;background-position:center;" data-query="cafe lofi acoustic instrumental warm" data-label="Café" data-sub="Acoustic · Warm · Cozy" data-emoji="☕" style="animation-delay:.1s">
           <div class="vcard-inner">
             <div class="vcard-emoji">☕</div>
             <div>
@@ -690,7 +691,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="nature" data-query="nature forest instrumental indian flute birds ambient outdoor" data-label="Nature" data-sub="Forest · Birds · Open air" data-emoji="🌲" style="animation-delay:.15s">
+        <div class="vcard" data-vibe="nature" style="background-image:url(https://source.unsplash.com/featured/300x500/?forest,leaves,green,birds);background-size:cover;background-position:center;" data-query="forest flute birds nature instrumental" data-label="Nature" data-sub="Forest · Birds · Open air" data-emoji="🌲" style="animation-delay:.15s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🌲</div>
             <div>
@@ -699,7 +700,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="space" data-query="space cosmic ambient instrumental deep meditation universe drone" data-label="Space" data-sub="Cosmic · Deep · Infinite" data-emoji="🌌" style="animation-delay:.2s">
+        <div class="vcard" data-vibe="space" style="background-image:url(https://source.unsplash.com/featured/300x500/?galaxy,stars,cosmos,deep);background-size:cover;background-position:center;" data-query="cosmic space ambient drone instrumental" data-label="Space" data-sub="Cosmic · Deep · Infinite" data-emoji="🌌" style="animation-delay:.2s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🌌</div>
             <div>
@@ -757,7 +758,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
     <div class="p-btns">
       <button class="pbtn2" id="favB">♡ Save</button>
       <button class="pbtn2" id="shareB">↗ Share</button>
-      <button class="pbtn2 gold" id="saavnB">JioSaavn</button>
+      <button class="pbtn2 gold" id="saavnB">♪ Stream</button>
     </div>
   </div>
 </div>
