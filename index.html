@@ -177,7 +177,7 @@ header{
 .vibe-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:14px;
+  gap:12px;
   max-width:700px;
   margin:0 auto 48px;
 }
@@ -189,17 +189,17 @@ header{
   overflow:hidden;
   cursor:pointer;
   border:1px solid var(--glassborder);
-  aspect-ratio:1/1.05;
+  aspect-ratio:3/4;
   transition:transform .3s cubic-bezier(.34,1.3,.64,1), box-shadow .3s;
   animation:fadeUp .5s ease both;
 }
 .vcard:hover{
-  transform:translateY(-6px) scale(1.01);
-  box-shadow:0 20px 60px rgba(0,0,0,0.6);
+  transform:translateY(-5px);
+  box-shadow:0 20px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
 }
 .vcard.active{
-  border-color:var(--gold);
-  box-shadow:0 0 0 2px var(--gold), 0 20px 60px rgba(200,168,107,0.2);
+  border-color:rgba(200,168,107,0.5);
+  box-shadow:0 0 0 1px rgba(200,168,107,0.3), 0 24px 60px rgba(0,0,0,0.7);
 }
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(18px);}
@@ -207,71 +207,77 @@ header{
 }
 
 /* card backgrounds — each vibe has a unique gradient */
-.vcard[data-vibe="peaceful"]   {background:linear-gradient(145deg,#0a2a1f 0%,#0d3028 40%,#071a12 100%);}
-.vcard[data-vibe="romantic"]   {background:linear-gradient(145deg,#2a0d1a 0%,#3d1528 40%,#1a0810 100%);}
-.vcard[data-vibe="melancholic"]{background:linear-gradient(145deg,#0d1a2a 0%,#152038 40%,#080f1a 100%);}
-.vcard[data-vibe="energetic"]  {background:linear-gradient(145deg,#2a1a08 0%,#3d2a10 40%,#1a0f05 100%);}
-.vcard[data-vibe="morning"]    {background:linear-gradient(145deg,#2a1f08 0%,#3d300f 40%,#1a1205 100%);}
-.vcard[data-vibe="afternoon"]  {background:linear-gradient(145deg,#1a2a10 0%,#253d18 40%,#0f1a08 100%);}
-.vcard[data-vibe="evening"]    {background:linear-gradient(145deg,#2a1208 0%,#3d1c10 40%,#1a0a05 100%);}
-.vcard[data-vibe="latenight"]  {background:linear-gradient(145deg,#08081a 0%,#101028 40%,#050510 100%);}
-.vcard[data-vibe="focused"]    {background:linear-gradient(145deg,#0a0a20 0%,#12122e 40%,#060610 100%);}
-.vcard[data-vibe="relaxed"]    {background:linear-gradient(145deg,#0a1f1a 0%,#122e28 40%,#061210 100%);}
-.vcard[data-vibe="sleepy"]     {background:linear-gradient(145deg,#120a20 0%,#1c1030 40%,#080512 100%);}
-.vcard[data-vibe="motivated"]  {background:linear-gradient(145deg,#201008 0%,#301810 40%,#100805 100%);}
-.vcard[data-vibe="rain"]       {background:linear-gradient(145deg,#08121a 0%,#101c28 40%,#050a10 100%);}
-.vcard[data-vibe="cafe"]       {background:linear-gradient(145deg,#1a1208 0%,#281c10 40%,#100a05 100%);}
-.vcard[data-vibe="nature"]     {background:linear-gradient(145deg,#081a10 0%,#10281a 40%,#050f08 100%);}
-.vcard[data-vibe="space"]      {background:linear-gradient(145deg,#05050f 0%,#0a0a1a 40%,#030308 100%);}
+.vcard[data-vibe="peaceful"]   {background:linear-gradient(160deg,#101f1a 0%,#0c1a15 50%,#080f0c 100%);}
+.vcard[data-vibe="romantic"]   {background:linear-gradient(160deg,#1e1018 0%,#180c14 50%,#0d080a 100%);}
+.vcard[data-vibe="melancholic"]{background:linear-gradient(160deg,#0f1520 0%,#0c1018 50%,#080a0f 100%);}
+.vcard[data-vibe="energetic"]  {background:linear-gradient(160deg,#1e1510 0%,#18110c 50%,#0d0a08 100%);}
+.vcard[data-vibe="morning"]    {background:linear-gradient(160deg,#1e1a0e 0%,#18150a 50%,#0d0e08 100%);}
+.vcard[data-vibe="afternoon"]  {background:linear-gradient(160deg,#111d0f 0%,#0d170b 50%,#080e07 100%);}
+.vcard[data-vibe="evening"]    {background:linear-gradient(160deg,#1e120e 0%,#180e0a 50%,#0d0807 100%);}
+.vcard[data-vibe="latenight"]  {background:linear-gradient(160deg,#0b0b18 0%,#080810 50%,#05050c 100%);}
+.vcard[data-vibe="focused"]    {background:linear-gradient(160deg,#0d1018 0%,#090c14 50%,#060810 100%);}
+.vcard[data-vibe="relaxed"]    {background:linear-gradient(160deg,#0f1e1a 0%,#0c1815 50%,#080e0c 100%);}
+.vcard[data-vibe="sleepy"]     {background:linear-gradient(160deg,#12101e 0%,#0e0c18 50%,#09080f 100%);}
+.vcard[data-vibe="motivated"]  {background:linear-gradient(160deg,#1c1410 0%,#16100c 50%,#0c0908 100%);}
+.vcard[data-vibe="rain"]       {background:linear-gradient(160deg,#0d1318 0%,#0a1015 50%,#07090e 100%);}
+.vcard[data-vibe="cafe"]       {background:linear-gradient(160deg,#1a1510 0%,#15110c 50%,#0c0d08 100%);}
+.vcard[data-vibe="nature"]     {background:linear-gradient(160deg,#0f1c12 0%,#0b1610 50%,#070e08 100%);}
+.vcard[data-vibe="space"]      {background:linear-gradient(160deg,#08080f 0%,#06060c 50%,#040408 100%);}
 
 /* card glow accent per vibe */
 .vcard::before{
   content:'';position:absolute;
-  width:180px;height:180px;
-  border-radius:50%;filter:blur(60px);
-  top:-40px;right:-40px;
-  opacity:0.35;
+  width:160px;height:160px;
+  border-radius:50%;filter:blur(80px);
+  top:-30px;right:-30px;
+  opacity:0.18;
   transition:opacity .3s;
 }
-.vcard:hover::before{opacity:0.55;}
-.vcard[data-vibe="peaceful"]::before   {background:#1aff8a;}
-.vcard[data-vibe="romantic"]::before   {background:#ff4d8a;}
-.vcard[data-vibe="melancholic"]::before{background:#4d8aff;}
-.vcard[data-vibe="energetic"]::before  {background:#ffaa1a;}
-.vcard[data-vibe="morning"]::before    {background:#ffd060;}
-.vcard[data-vibe="afternoon"]::before  {background:#70d060;}
-.vcard[data-vibe="evening"]::before    {background:#ff7040;}
-.vcard[data-vibe="latenight"]::before  {background:#6060ff;}
-.vcard[data-vibe="focused"]::before    {background:#40c0ff;}
-.vcard[data-vibe="relaxed"]::before    {background:#40ffb0;}
-.vcard[data-vibe="sleepy"]::before     {background:#a060ff;}
-.vcard[data-vibe="motivated"]::before  {background:#ff8040;}
-.vcard[data-vibe="rain"]::before       {background:#60a0ff;}
-.vcard[data-vibe="cafe"]::before       {background:#c08040;}
-.vcard[data-vibe="nature"]::before     {background:#40c060;}
-.vcard[data-vibe="space"]::before      {background:#8040ff;}
+.vcard:hover::before{opacity:0.28;}
+.vcard[data-vibe="peaceful"]::before   {background:#4a9e7a;}
+.vcard[data-vibe="romantic"]::before   {background:#9e5a70;}
+.vcard[data-vibe="melancholic"]::before{background:#5a7a9e;}
+.vcard[data-vibe="energetic"]::before  {background:#9e7a4a;}
+.vcard[data-vibe="morning"]::before    {background:#b8945a;}
+.vcard[data-vibe="afternoon"]::before  {background:#6a9e5a;}
+.vcard[data-vibe="evening"]::before    {background:#9e6a4a;}
+.vcard[data-vibe="latenight"]::before  {background:#5a5a9e;}
+.vcard[data-vibe="focused"]::before    {background:#4a7a9e;}
+.vcard[data-vibe="relaxed"]::before    {background:#4a9e8a;}
+.vcard[data-vibe="sleepy"]::before     {background:#7a5a9e;}
+.vcard[data-vibe="motivated"]::before  {background:#9e6a4a;}
+.vcard[data-vibe="rain"]::before       {background:#4a6a9e;}
+.vcard[data-vibe="cafe"]::before       {background:#9e7a4a;}
+.vcard[data-vibe="nature"]::before     {background:#4a8a5a;}
+.vcard[data-vibe="space"]::before      {background:#5a4a8a;}
 
+.vcard::after{
+  content:'';
+  position:absolute;top:0;left:20%;right:20%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);
+  z-index:2;
+}
 .vcard-inner{
   position:relative;z-index:1;
   height:100%;
   display:flex;flex-direction:column;
   justify-content:space-between;
-  padding:20px 18px 18px;
+  padding:22px 18px 20px;
 }
-.vcard-emoji{font-size:32px;margin-bottom:auto;filter:drop-shadow(0 0 12px rgba(255,255,255,0.3));}
+.vcard-emoji{font-size:38px;margin-bottom:auto;filter:drop-shadow(0 0 8px rgba(255,255,255,0.15));opacity:0.85;}
 .vcard-name{
   font-family:var(--font-display);
-  font-size:22px;font-weight:300;
-  letter-spacing:0.02em;
+  font-size:26px;font-weight:300;
+  letter-spacing:0.03em;
   line-height:1.1;
-  color:#fff;
-  margin-bottom:4px;
+  color:rgba(255,255,255,0.9);
+  margin-bottom:6px;
 }
 .vcard-sub{
-  font-size:10px;font-weight:400;
-  letter-spacing:0.1em;text-transform:uppercase;
-  color:rgba(255,255,255,0.4);
-  line-height:1.4;
+  font-size:10px;font-weight:300;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(255,255,255,0.3);
+  line-height:1.6;
 }
 .vcard-count{
   position:absolute;top:14px;right:14px;
@@ -501,9 +507,9 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
 
 <!-- Ambient background -->
 <div id="ambientBg">
-  <div class="orb" id="orb1" style="width:500px;height:500px;top:-100px;left:-150px;opacity:0.07;background:#1aff8a;animation-duration:25s;"></div>
-  <div class="orb" id="orb2" style="width:400px;height:400px;bottom:-80px;right:-100px;opacity:0.06;background:#4d8aff;animation-duration:30s;animation-delay:-10s;"></div>
-  <div class="orb" id="orb3" style="width:250px;height:250px;top:40%;left:45%;opacity:0.05;background:#c8a86b;animation-duration:20s;animation-delay:-5s;"></div>
+  <div class="orb" id="orb1" style="width:500px;height:500px;top:-100px;left:-150px;opacity:0.05;background:#4a9e7a;animation-duration:25s;"></div>
+  <div class="orb" id="orb2" style="width:400px;height:400px;bottom:-80px;right:-100px;opacity:0.04;background:#5a7a9e;animation-duration:30s;animation-delay:-10s;"></div>
+  <div class="orb" id="orb3" style="width:250px;height:250px;top:40%;left:45%;opacity:0.04;background:#c8a86b;animation-duration:20s;animation-delay:-5s;"></div>
 </div>
 
 <div class="app">
@@ -538,7 +544,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
       <div class="grid-label">— How are you feeling? —</div>
       <div class="vibe-grid">
         <div class="vcard" data-vibe="peaceful" data-query="peaceful indian instrumental music sitar flute meditation" data-label="Peaceful" data-sub="Sitar · Flute · Still" data-emoji="🌿" style="animation-delay:.05s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">🌿</div>
             <div>
@@ -547,8 +552,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="romantic" data-query="romantic indian instrumental violin sarangi love" data-label="Romantic" data-sub="Violin · Sarangi · Warm" data-emoji="🌹" style="animation-delay:.1s">
-          <div class="vcard-count">12 tracks</div>
+        <div class="vcard" data-vibe="romantic" data-query="romantic instrumental violin piano bollywood" data-label="Romantic" data-sub="Violin · Sarangi · Warm" data-emoji="🌹" style="animation-delay:.1s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🌹</div>
             <div>
@@ -558,7 +562,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
           </div>
         </div>
         <div class="vcard" data-vibe="melancholic" data-query="melancholic indian instrumental sarod sad classical" data-label="Melancholic" data-sub="Sarod · Strings · Longing" data-emoji="🌧️" style="animation-delay:.15s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">🌧️</div>
             <div>
@@ -567,8 +570,7 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
             </div>
           </div>
         </div>
-        <div class="vcard" data-vibe="energetic" data-query="energetic indian instrumental tabla dhol fusion beats" data-label="Energetic" data-sub="Tabla · Dhol · Fire" data-emoji="🔥" style="animation-delay:.2s">
-          <div class="vcard-count">12 tracks</div>
+        <div class="vcard" data-vibe="energetic" data-query="energetic instrumental fusion tabla Indian upbeat" data-label="Energetic" data-sub="Tabla · Dhol · Fire" data-emoji="🔥" style="animation-delay:.2s">
           <div class="vcard-inner">
             <div class="vcard-emoji">🔥</div>
             <div>
@@ -585,7 +587,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
       <div class="grid-label">— What time is it? —</div>
       <div class="vibe-grid">
         <div class="vcard" data-vibe="morning" data-query="morning raga bhairav indian classical sunrise instrumental" data-label="Morning" data-sub="Raga Bhairav · Dawn" data-emoji="🌅" style="animation-delay:.05s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">🌅</div>
             <div>
@@ -595,7 +596,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
           </div>
         </div>
         <div class="vcard" data-vibe="afternoon" data-query="afternoon raga bhimpalasi indian classical midday instrumental" data-label="Afternoon" data-sub="Raga Bhimpalasi · Midday" data-emoji="☀️" style="animation-delay:.1s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">☀️</div>
             <div>
@@ -605,7 +605,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
           </div>
         </div>
         <div class="vcard" data-vibe="evening" data-query="evening raga yaman puriya indian classical sunset instrumental" data-label="Evening" data-sub="Raga Yaman · Dusk" data-emoji="🌆" style="animation-delay:.15s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">🌆</div>
             <div>
@@ -615,7 +614,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
           </div>
         </div>
         <div class="vcard" data-vibe="latenight" data-query="late night raga bhairavi darbari indian classical midnight instrumental" data-label="Late Night" data-sub="Raga Darbari · Midnight" data-emoji="🌙" style="animation-delay:.2s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">🌙</div>
             <div>
@@ -632,7 +630,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
       <div class="grid-label">— What do you need? —</div>
       <div class="vibe-grid">
         <div class="vcard" data-vibe="focused" data-query="focus study instrumental indian classical minimalist concentration" data-label="Focused" data-sub="Minimal · No distraction" data-emoji="🎯" style="animation-delay:.05s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">🎯</div>
             <div>
@@ -642,7 +639,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
           </div>
         </div>
         <div class="vcard" data-vibe="relaxed" data-query="relax instrumental indian lofi chill bansuri flute calm" data-label="Relaxed" data-sub="Bansuri · Lofi · Easy" data-emoji="🛋️" style="animation-delay:.1s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">🛋️</div>
             <div>
@@ -652,7 +648,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
           </div>
         </div>
         <div class="vcard" data-vibe="sleepy" data-query="sleep instrumental indian meditation drone slow ambient" data-label="Sleepy" data-sub="Drone · Slow · Drift" data-emoji="😴" style="animation-delay:.15s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">😴</div>
             <div>
@@ -662,7 +657,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
           </div>
         </div>
         <div class="vcard" data-vibe="motivated" data-query="motivation instrumental indian fusion uplifting energetic beats" data-label="Motivated" data-sub="Fusion · Uplifting · Drive" data-emoji="⚡" style="animation-delay:.2s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">⚡</div>
             <div>
@@ -679,7 +673,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
       <div class="grid-label">— Where are you? —</div>
       <div class="vibe-grid">
         <div class="vcard" data-vibe="rain" data-query="rain instrumental indian ambient nature water sounds sitar" data-label="Rain" data-sub="Water · Petrichor · Grey" data-emoji="🌧️" style="animation-delay:.05s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">🌧️</div>
             <div>
@@ -689,7 +682,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
           </div>
         </div>
         <div class="vcard" data-vibe="cafe" data-query="cafe background instrumental indian lofi acoustic warm cozy" data-label="Café" data-sub="Acoustic · Warm · Cozy" data-emoji="☕" style="animation-delay:.1s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">☕</div>
             <div>
@@ -699,7 +691,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
           </div>
         </div>
         <div class="vcard" data-vibe="nature" data-query="nature forest instrumental indian flute birds ambient outdoor" data-label="Nature" data-sub="Forest · Birds · Open air" data-emoji="🌲" style="animation-delay:.15s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">🌲</div>
             <div>
@@ -709,7 +700,6 @@ audio::-webkit-media-controls-panel{background:var(--ink3)!important;}
           </div>
         </div>
         <div class="vcard" data-vibe="space" data-query="space cosmic ambient instrumental deep meditation universe drone" data-label="Space" data-sub="Cosmic · Deep · Infinite" data-emoji="🌌" style="animation-delay:.2s">
-          <div class="vcard-count">12 tracks</div>
           <div class="vcard-inner">
             <div class="vcard-emoji">🌌</div>
             <div>
