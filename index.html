@@ -4,9 +4,11 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <meta name="theme-color" content="#050a0e"/>
+<meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="SwarShanti"/>
 <title>SwarShanti — स्वरशांति</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Serif+Devanagari:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
@@ -380,9 +382,27 @@ audio{width:100%;border-radius:8px;outline:none;margin-bottom:12px;accent-color:
   </div>
 </div>
 <div class="toast" id="toast"></div>
+<div id="debugBox" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:rgba(0,0,0,0.95);overflow:auto;padding:20px;font-size:11px;font-family:monospace;color:#0f0;white-space:pre-wrap;word-break:break-all;">
+  <button onclick="document.getElementById('debugBox').style.display='none'" style="position:sticky;top:0;background:#e8445a;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;margin-bottom:12px;display:block;">✕ Close</button>
+  <div id="debugContent">Tap any vibe card to see API response here...</div>
+</div>
 
 <script>
 const API = 'https://jiosawanapi.vercel.app/api';
+
+// ── DEBUG: tap card 3 times fast to show raw API response ──
+let tapCount=0, tapTimer=null;
+document.addEventListener('click', ()=>{
+  tapCount++;
+  clearTimeout(tapTimer);
+  tapTimer=setTimeout(()=>{ tapCount=0; },400);
+  if(tapCount>=3){
+    const d=document.getElementById('debugBox');
+    d.style.display=d.style.display==='none'?'block':'none';
+    tapCount=0;
+  }
+});
+
 const FAV_KEY = 'sw_favs';
 
 let songs=[], idx=-1, expanded=false, sleepTimer=null, activeVibe=null;
@@ -507,16 +527,20 @@ async function loadSongs(query, vibe) {
   if (cache[vibe]) { renderSongs(cache[vibe]); return; }
   renderSkel();
   try {
-    const r = await fetch(`${API}/search/songs?query=${encodeURIComponent(query)}&limit=12`);
+    const url = `${API}/search/songs?query=${encodeURIComponent(query)}&limit=12`;
+    const r = await fetch(url);
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const data = await r.json();
+    // DEBUG: show raw response
+    document.getElementById('debugContent').textContent =
+      'Query: ' + query + '\nURL: ' + url + '\n\nRaw response:\n' + JSON.stringify(data, null, 2);
     const mapped = parseSongs(data);
-    if (!mapped.length) throw new Error('No results');
+    if (!mapped.length) throw new Error('No results — check debug (tap 3x)');
     cache[vibe] = mapped;
     renderSongs(mapped);
   } catch(e) {
     document.getElementById('songList').innerHTML=
-      `<div class="empty"><p>Could not load songs.<br/><small style="color:var(--dim)">${e.message}</small></p></div>`;
+      `<div class="empty"><p>Could not load songs.<br/><small style="color:var(--dim)">${e.message}</small></p><br/><small style="color:var(--dim)">Tap screen 3 times quickly to see debug info</small></div>`;
   }
 }
 
