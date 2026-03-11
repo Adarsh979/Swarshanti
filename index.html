@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="SwarShanti"/>
-<title>Swar Shanti · स्वरशांति — Instrumental Music</title>
+<title>SwarShanti · स्वरशांति — Instrumental Music</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Serif+Devanagari:wght@300;400&display=swap" rel="stylesheet"/>
@@ -192,6 +192,100 @@ audio{width:100%;border-radius:8px;outline:none;margin-bottom:12px;accent-color:
 
 .toast{position:fixed;bottom:235px;left:50%;transform:translateX(-50%) translateY(8px);background:rgba(15,20,25,0.96);border:1px solid var(--gb);border-radius:100px;padding:8px 18px;font-size:12px;color:var(--text);opacity:0;transition:all .3s;pointer-events:none;z-index:999;white-space:nowrap;backdrop-filter:blur(12px);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+/* ── FEATURE TOOLBAR ── */
+.ftbar{display:flex;justify-content:center;gap:8px;padding:0 20px 32px;flex-wrap:wrap;}
+.ftbtn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:100px;border:1px solid var(--gb);background:var(--glass);color:var(--muted);font-size:11px;font-family:var(--fb);letter-spacing:0.06em;cursor:pointer;transition:all .25s;backdrop-filter:blur(10px);}
+.ftbtn:hover{color:var(--text);border-color:rgba(255,255,255,0.18);}
+.ftbtn .fi{font-size:15px;}
+
+/* ── MODAL BASE ── */
+.mwrap{position:fixed;inset:0;z-index:500;display:flex;align-items:flex-end;justify-content:center;pointer-events:none;opacity:0;transition:opacity .3s;}
+.mwrap.open{pointer-events:all;opacity:1;}
+.mbg{position:absolute;inset:0;background:rgba(0,0,0,0.72);backdrop-filter:blur(8px);}
+.modal{position:relative;z-index:1;width:100%;max-width:520px;background:rgba(7,11,15,0.99);border:1px solid var(--gb);border-radius:24px 24px 0 0;padding-bottom:calc(20px + env(safe-area-inset-bottom));transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.1,.64,1);max-height:90vh;overflow-y:auto;}
+.mwrap.open .modal{transform:translateY(0);}
+.mhandle{width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,0.1);margin:12px auto 0;}
+.mhead{display:flex;align-items:center;justify-content:space-between;padding:16px 22px 0;}
+.mtitle{font-family:var(--fd);font-size:21px;font-weight:300;font-style:italic;}
+.mclose{width:30px;height:30px;border-radius:50%;border:1px solid var(--gb);background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .2s;}
+.mclose:hover{color:var(--text);}
+.mbody{padding:18px 22px 0;}
+
+/* ── MOOD CHECK-IN ── */
+.mstep{display:none;animation:fu .3s ease both;}
+.mstep.on{display:block;}
+.mq{font-family:var(--fd);font-size:19px;font-weight:300;font-style:italic;margin-bottom:4px;line-height:1.4;}
+.mhint{font-size:11px;color:var(--muted);margin-bottom:18px;letter-spacing:0.03em;}
+.mopts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;}
+.mopt{padding:13px 10px;border-radius:13px;border:1px solid var(--gb);background:var(--glass);cursor:pointer;transition:all .2s;text-align:center;}
+.mopt:hover{border-color:rgba(255,255,255,0.14);}
+.mopt.sel{border-color:var(--gold);background:rgba(200,168,107,0.07);}
+.mopt-e{font-size:22px;margin-bottom:5px;}
+.mopt-l{font-family:var(--fd);font-size:14px;font-weight:300;}
+.mopt-s{font-size:9px;color:var(--muted);margin-top:2px;letter-spacing:0.05em;}
+.mprog{display:flex;gap:5px;margin-bottom:20px;}
+.mdot{height:3px;flex:1;border-radius:2px;background:var(--gb);transition:background .3s;}
+.mdot.done{background:var(--gold);}
+.mnavrow{display:flex;gap:8px;justify-content:flex-end;margin-top:4px;}
+.mnbtn{padding:10px 20px;border-radius:100px;border:1px solid var(--gb);background:var(--glass);color:var(--muted);font-size:12px;font-family:var(--fb);cursor:pointer;transition:all .2s;}
+.mnbtn.pri{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:500;}
+.mres{text-align:center;padding:8px 0;}
+.mres-e{font-size:46px;margin-bottom:10px;}
+.mres-t{font-family:var(--fd);font-size:25px;font-weight:300;font-style:italic;margin-bottom:5px;}
+.mres-s{font-size:12px;color:var(--muted);line-height:1.75;margin-bottom:20px;}
+
+/* ── FOCUS TIMER ── */
+.tring{position:relative;width:190px;height:190px;margin:8px auto 20px;}
+.tsvg{transform:rotate(-90deg);}
+.tbg{fill:none;stroke:var(--gb);stroke-width:6;}
+.tfg{fill:none;stroke:var(--gold);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset 1s linear;stroke-dasharray:534;stroke-dashoffset:0;}
+.tinner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.tdisp{font-family:var(--fd);font-size:40px;font-weight:300;letter-spacing:0.02em;line-height:1;}
+.tphase{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:5px;}
+.tsess{font-size:9px;color:var(--dim);margin-top:3px;}
+.tpresets{display:flex;gap:6px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;}
+.tpbtn{padding:6px 13px;border-radius:100px;border:1px solid var(--gb);background:var(--glass);color:var(--muted);font-size:10px;letter-spacing:0.05em;cursor:pointer;transition:all .2s;}
+.tpbtn.on{border-color:var(--gold);background:rgba(200,168,107,0.07);color:var(--gold);}
+.tctrl{display:flex;gap:8px;justify-content:center;margin-bottom:16px;}
+.tcbtn{padding:10px 26px;border-radius:100px;border:1px solid var(--gb);background:var(--glass);color:var(--text);font-size:12px;font-family:var(--fb);cursor:pointer;transition:all .2s;}
+.tcbtn.pri{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:500;}
+.tinfo{font-size:11px;color:var(--dim);text-align:center;line-height:1.7;font-style:italic;}
+
+/* ── RAGA INFO ── */
+.rhero{border-radius:14px;background:linear-gradient(135deg,var(--ink3),var(--ink2));padding:20px;margin-bottom:16px;position:relative;overflow:hidden;}
+.rhero::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;filter:blur(50px);background:var(--gold);opacity:0.09;}
+.rname{font-family:var(--fd);font-size:26px;font-weight:300;font-style:italic;margin-bottom:3px;}
+.rhiname{font-family:'Noto Serif Devanagari',serif;font-size:15px;color:var(--gold);opacity:0.8;margin-bottom:12px;}
+.rtags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.rtag{padding:3px 10px;border-radius:100px;border:1px solid var(--gb);font-size:9px;color:var(--muted);letter-spacing:0.06em;}
+.rdesc{font-size:12px;color:var(--muted);line-height:1.75;}
+.rsect{margin-bottom:16px;}
+.rsecttitle{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);opacity:0.7;margin-bottom:8px;}
+.rfilms{display:flex;flex-direction:column;gap:6px;}
+.rfilm{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;background:var(--glass);border:1px solid var(--gb);}
+.rfilm-e{font-size:15px;flex-shrink:0;}
+.rfilm-t{font-size:12px;}
+.rfilm-s{font-size:10px;color:var(--muted);margin-top:1px;}
+.rnoinfo{text-align:center;padding:28px 0;color:var(--muted);font-style:italic;font-size:13px;}
+
+/* ── AMBIENT MIXER ── */
+.aintro{font-size:12px;color:var(--muted);line-height:1.75;margin-bottom:18px;font-style:italic;}
+.atracks{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.arow{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:13px;background:var(--glass);border:1px solid var(--gb);transition:border-color .2s;}
+.arow.on{border-color:rgba(200,168,107,0.22);}
+.aicon{font-size:20px;width:28px;text-align:center;flex-shrink:0;}
+.ameta{flex:1;min-width:0;}
+.aname{font-size:12px;font-weight:400;margin-bottom:2px;}
+.adesc{font-size:10px;color:var(--muted);}
+.atog{width:30px;height:30px;border-radius:50%;border:1px solid var(--gb);background:none;color:var(--muted);cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
+.atog.on{background:rgba(200,168,107,0.1);border-color:var(--gold);color:var(--gold);}
+input.avol{-webkit-appearance:none;width:75px;height:3px;border-radius:2px;background:var(--gb);outline:none;cursor:pointer;flex-shrink:0;}
+input.avol::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--gold);cursor:pointer;}
+.amaster{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-radius:13px;border:1px solid rgba(200,168,107,0.18);background:rgba(200,168,107,0.03);margin-bottom:6px;}
+.amaster-l{font-size:11px;color:var(--gold);letter-spacing:0.05em;}
+.astopall{padding:6px 14px;border-radius:100px;border:1px solid var(--gold);background:none;color:var(--gold);font-size:10px;cursor:pointer;transition:all .2s;font-family:var(--fb);}
+.astopall:hover{background:rgba(200,168,107,0.08);}
+
 .divider{width:36px;height:1px;background:linear-gradient(90deg,transparent,var(--gb),transparent);margin:0 auto 32px;}
 </style>
 </head>
@@ -351,6 +445,15 @@ audio{width:100%;border-radius:8px;outline:none;margin-bottom:12px;accent-color:
 
   <div class="divider"></div>
 
+
+  <!-- Feature Toolbar -->
+  <div class="ftbar">
+    <button class="ftbtn" onclick="openModal('moodModal')"><span class="fi">🌡️</span> Mood Check-in</button>
+    <button class="ftbtn" onclick="openModal('timerModal')"><span class="fi">⏱️</span> Focus Timer</button>
+    <button class="ftbtn" id="ragaBtn" onclick="openRagaModal()"><span class="fi">📖</span> Raga Info</button>
+    <button class="ftbtn" onclick="openModal('ambModal')"><span class="fi">🎨</span> Ambient Mixer</button>
+  </div>
+
   <div id="songPanel">
     <div class="phead">
       <div class="ptitle" id="panelTitle">—</div>
@@ -398,6 +501,9 @@ audio{width:100%;border-radius:8px;outline:none;margin-bottom:12px;accent-color:
 </div>
 
 <script>
+
+document.addEventListener('DOMContentLoaded',function(){
+
 const API = 'https://jiosawanapi.vercel.app/api';
 
 // ── FALLBACK QUERIES — if primary returns 0 results, try these ──
@@ -733,6 +839,315 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'),2500);
 }
 
+
+// ══════════════════════════════════════════════════════════════
+// ── MODAL SYSTEM ─────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+function openModal(id){
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(id){
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ══════════════════════════════════════════════════════════════
+// ── MOOD CHECK-IN ─────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+let moodStep=0, moodAns={};
+
+// option click
+document.querySelectorAll('.mopt').forEach(el=>{
+  el.addEventListener('click',()=>{
+    const step=+el.dataset.step;
+    document.querySelectorAll(`.mopt[data-step="${step}"]`).forEach(o=>o.classList.remove('sel'));
+    el.classList.add('sel');
+    moodAns[step]=el.dataset.val;
+  });
+});
+
+function moodNext(){
+  if(!moodAns[moodStep]){showToast('Please pick an option first');return;}
+  moodStep++;
+  showMoodStep(moodStep);
+}
+function moodBack(){moodStep--;showMoodStep(moodStep);}
+function showMoodStep(s){
+  document.querySelectorAll('.mstep').forEach((el,i)=>el.classList.toggle('on',i===s));
+  document.querySelectorAll('.mdot').forEach((d,i)=>d.classList.toggle('done',i<=s));
+}
+
+// vibe scoring matrix
+const MOOD_MATRIX = {
+  // [energy][emotion][setting] → vibe
+  low:{peaceful:{nature:'peaceful',cafe:'relaxed',rain:'melancholic',latenight:'sleepy'},
+       romantic:{nature:'romantic',cafe:'romantic',rain:'melancholic',latenight:'latenight'},
+       melancholic:{nature:'melancholic',cafe:'melancholic',rain:'melancholic',latenight:'sleepy'},
+       motivated:{nature:'relaxed',cafe:'focused',rain:'relaxed',latenight:'latenight'}},
+  medium:{peaceful:{nature:'nature',cafe:'cafe',rain:'rain',latenight:'relaxed'},
+          romantic:{nature:'romantic',cafe:'romantic',rain:'rain',latenight:'romantic'},
+          melancholic:{nature:'melancholic',cafe:'cafe',rain:'rain',latenight:'melancholic'},
+          motivated:{nature:'motivated',cafe:'focused',rain:'focused',latenight:'focused'}},
+  high:{peaceful:{nature:'energetic',cafe:'energetic',rain:'motivated',latenight:'motivated'},
+        romantic:{nature:'romantic',cafe:'romantic',rain:'romantic',latenight:'romantic'},
+        melancholic:{nature:'melancholic',cafe:'melancholic',rain:'melancholic',latenight:'melancholic'},
+        motivated:{nature:'motivated',cafe:'motivated',rain:'energetic',latenight:'motivated'}},
+  tired:{peaceful:{nature:'sleepy',cafe:'relaxed',rain:'sleepy',latenight:'sleepy'},
+         romantic:{nature:'romantic',cafe:'relaxed',rain:'sleepy',latenight:'sleepy'},
+         melancholic:{nature:'melancholic',cafe:'sleepy',rain:'sleepy',latenight:'sleepy'},
+         motivated:{nature:'relaxed',cafe:'relaxed',rain:'sleepy',latenight:'sleepy'}},
+};
+const VIBE_META={
+  peaceful:{e:'🌿',t:'Peaceful',s:'Flute melodies and still water. Let the silence hold you.'},
+  romantic:{e:'🌹',t:'Romantic',s:'Warm strings in the key of longing. Made for this moment.'},
+  melancholic:{e:'🌫️',t:'Melancholic',s:'Sarod in the grey hours. Beautiful sadness.'},
+  energetic:{e:'🔥',t:'Energetic',s:'Tabla and percussion. Let the rhythm carry you.'},
+  relaxed:{e:'🛋️',t:'Relaxed',s:'Bansuri and ease. Nothing to do, nowhere to be.'},
+  sleepy:{e:'😴',t:'Sleepy',s:'Slow drones and night ragas. Drift away gently.'},
+  motivated:{e:'⚡',t:'Motivated',s:'Fusion energy. You are ready for whatever comes next.'},
+  focused:{e:'🎯',t:'Focused',s:'Minimal and clear. Pure concentration.'},
+  rain:{e:'🌧️',t:'Rain',s:'Raga Malhar and water sounds. The earth smells like memory.'},
+  cafe:{e:'☕',t:'Café',s:'Warm acoustic tones. A corner table, soft light.'},
+  nature:{e:'🌲',t:'Nature',s:'Flute and birdsong. The forest breathes with you.'},
+  latenight:{e:'🌙',t:'Late Night',s:'Raga Darbari and midnight air. The world belongs to you.'},
+};
+let moodResultVibe='peaceful';
+
+function moodFinish(){
+  if(!moodAns[2]){showToast('Please pick a setting');return;}
+  const e=moodAns[0],em=moodAns[1],se=moodAns[2];
+  const vibe=(MOOD_MATRIX[e]?.[em]?.[se])||'peaceful';
+  moodResultVibe=vibe;
+  const meta=VIBE_META[vibe]||VIBE_META.peaceful;
+  document.getElementById('mresEmoji').textContent=meta.e;
+  document.getElementById('mresTitle').textContent=meta.t;
+  document.getElementById('mresSub').textContent=meta.s;
+  moodStep=3;showMoodStep(3);
+}
+
+function moodApply(){
+  closeModal('moodModal');
+  // find and click the matching vibe card
+  const card=document.querySelector(`.vcard[data-vibe="${moodResultVibe}"]`);
+  if(card){
+    // switch to correct category tab first
+    const cat=card.dataset.cat;
+    document.querySelectorAll('.catbtn').forEach(b=>b.classList.toggle('on',b.dataset.cat===cat));
+    document.querySelectorAll('.vsec').forEach(s=>s.style.display=s.dataset.cat===cat?'block':'none');
+    card.click();
+    setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'center'}),200);
+  }
+  // reset mood state for next time
+  setTimeout(()=>{moodStep=0;moodAns={};showMoodStep(0);document.querySelectorAll('.mopt').forEach(o=>o.classList.remove('sel'));},500);
+}
+
+// ══════════════════════════════════════════════════════════════
+// ── FOCUS TIMER ───────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+let tWork=25,tBreak=5,tLeft=25*60,tRunning=false,tInterval=null,tPhase='focus',tSession=1,tTotalSessions=4;
+const CIRC=534; // 2π×85
+
+function setTimerPreset(btn,work,brk){
+  document.querySelectorAll('.tpbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  tWork=work;tBreak=brk;
+  timerReset();
+}
+function timerReset(){
+  clearInterval(tInterval);tRunning=false;
+  tPhase='focus';tSession=1;tLeft=tWork*60;
+  updateTimerUI();
+  document.getElementById('timerStartBtn').textContent='Start';
+  document.getElementById('timerInfo').textContent='Music plays during focus. Auto-pauses on break. ✦';
+}
+function timerToggle(){
+  if(tRunning){
+    clearInterval(tInterval);tRunning=false;
+    document.getElementById('timerStartBtn').textContent='Resume';
+  } else {
+    tRunning=true;
+    document.getElementById('timerStartBtn').textContent='Pause';
+    tInterval=setInterval(timerTick,1000);
+  }
+}
+function timerTick(){
+  tLeft--;
+  if(tLeft<=0){
+    if(tPhase==='focus'){
+      // switch to break
+      tPhase='break';tLeft=tBreak*60;
+      audio.pause();document.getElementById('ppB').textContent='▶';
+      showToast('🌿 Break time — music paused');
+      // vibrate if supported
+      if(navigator.vibrate)navigator.vibrate([200,100,200]);
+    } else {
+      // switch back to focus
+      tSession++;tPhase='focus';tLeft=tWork*60;
+      if(tSession>tTotalSessions){timerReset();showToast('✦ 4 sessions complete! Great work.');return;}
+      audio.play().catch(()=>{});document.getElementById('ppB').textContent='⏸';
+      showToast('🎯 Focus time — music resumed');
+      if(navigator.vibrate)navigator.vibrate(300);
+    }
+  }
+  updateTimerUI();
+}
+function updateTimerUI(){
+  const total=tPhase==='focus'?tWork*60:tBreak*60;
+  const pct=tLeft/total;
+  const offset=CIRC*(1-pct);
+  document.getElementById('timerRing').style.strokeDashoffset=offset;
+  // color shifts on break
+  document.getElementById('timerRing').style.stroke=tPhase==='focus'?'var(--gold)':'#6a9e8a';
+  const m=Math.floor(tLeft/60),s=tLeft%60;
+  document.getElementById('timerDisp').textContent=`${m}:${s.toString().padStart(2,'0')}`;
+  document.getElementById('timerPhase').textContent=tPhase==='focus'?'Focus':'Break';
+  document.getElementById('timerSess').textContent=`Session ${tSession} of ${tTotalSessions}`;
+}
+
+// ══════════════════════════════════════════════════════════════
+// ── RAGA INFO ─────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+const RAGA_DB = {
+  // keyed by search terms that appear in song titles/queries
+  'bhairav':  {name:'Raga Bhairav',hi:'राग भैरव',time:'Early Morning (5–8 AM)',mood:'Devotion · Serenity · Awakening',thaat:'Bhairav',aroh:'S r G m P d N S̈',desc:'One of the oldest ragas, Bhairav evokes the stillness before dawn — devotional, introspective, and profound. Associated with Lord Shiva, it creates a mood of deep meditation and spiritual surrender.',films:[{e:'🎬',t:'Guide (1965)',s:'Aaj phir jeene ki tamanna'},{e:'🎬',t:'Baiju Bawra (1952)',s:'Man tarpat hari darshan'},{e:'🎵',t:'Waqt (1965)',s:'Ai meri zohra jabeen'}]},
+  'bhimpalasi':{name:'Raga Bhimpalasi',hi:'राग भीमपलासी',time:'Afternoon (3–6 PM)',mood:'Longing · Romance · Tenderness',thaat:'Kafi',aroh:'S g m P n S̈',desc:'Bhimpalasi carries the quiet longing of a warm afternoon — tender, romantic and slightly melancholic. It is among the most beloved ragas for evoking the emotion of yearning (viraha).',films:[{e:'🎬',t:'Pakeezah (1972)',s:'Inhi logon ne'},{e:'🎵',t:'Chaudhvin ka Chand (1960)',s:'Chaudhvin ka chand ho'},{e:'🎬',t:'Sahib Bibi Ghulam (1962)',s:'Na jao saiyan'}]},
+  'yaman':    {name:'Raga Yaman',hi:'राग यमन',time:'Evening (6–9 PM)',mood:'Romance · Grandeur · Hopefulness',thaat:'Kalyan',aroh:'S R G M̈ P D N S̈',desc:'Raga Yaman is the gateway raga — the first serious raga most students learn, yet endlessly deep. Its raised madhyam (teevra Ma) gives it a luminous, expansive quality perfect for the golden hour.',films:[{e:'🎬',t:'Jhanak Jhanak Payal Baaje (1955)',s:'Nain so nain'},{e:'🎵',t:'Kaagaz ke Phool (1959)',s:'Waqt ne kiya'},{e:'🎬',t:'Mughal-e-Azam (1960)',s:'Mohe panghat pe'}]},
+  'darbari':  {name:'Raga Darbari Kanada',hi:'राग दरबारी कानड़ा',time:'Late Night (after 10 PM)',mood:'Gravity · Majesty · Contemplation',thaat:'Asavari',aroh:'S R g m P d̈ n S̈',desc:'Created by the legendary Tansen for Emperor Akbar\u2019s court, Darbari Kanada is a raga of regal gravity and slow unfolding. Its characteristic gamaks (oscillations) in komal gandhar and nishad create a deeply contemplative mood.',films:[{e:'🎬',t:'Devdas (1955)',s:'Mitwa'},{e:'🎵',t:'Umrao Jaan (1981)',s:'Dil cheez kya hai'},{e:'🎬',t:'Pakeezah (1972)',s:'Mausam hai aashiqana'}]},
+  'malhar':   {name:'Raga Megh Malhar',hi:'राग मेघ मल्हार',time:'Monsoon · Any time',mood:'Rain · Joy · Nature · Liberation',thaat:'Kafi',aroh:'S R m P n S̈',desc:'The malhar family of ragas is intimately associated with monsoon rains. Legend says Tansen\u2019s Megh Malhar could invoke actual rain clouds. It captures the joy, relief and primal emotion of the first rain.',films:[{e:'🎬',t:'Baiju Bawra (1952)',s:'Ganga jamuna'},{e:'🎵',t:'Barsaat (1949)',s:'Barsaat mein'},{e:'🎬',t:'Do Bigha Zameen (1953)',s:'Dharti kahe pukar ke'}]},
+  'bhairavi': {name:'Raga Bhairavi',hi:'राग भैरवी',time:'Early Morning · Closing Raga',mood:'Pathos · Farewell · Surrender',thaat:'Bhairavi',aroh:'S r g m P d n S̈',desc:'Bhairavi is traditionally the last raga played at any concert — the raga of farewell and completion. Its all-flat notes create an atmosphere of tender resignation, longing and ultimate peace. Associated with Goddess Saraswati.',films:[{e:'🎬',t:'Mughal-e-Azam (1960)',s:'Pyaar kiya to darna kya'},{e:'🎵',t:'Baiju Bawra (1952)',s:'Tu ganga ki mauj'},{e:'🎬',t:'Shree 420 (1955)',s:'Mera joota hai japani'}]},
+};
+
+function openRagaModal(){
+  const body=document.getElementById('ragaBody');
+  if(idx<0||!songs[idx]){
+    body.innerHTML='<div class="rnoinfo">Play a song first to explore its raga. ✦</div>';
+    openModal('ragaModal');
+    return;
+  }
+  const song=songs[idx];
+  const titleLower=(song.title+' '+(song.album||'')).toLowerCase();
+  // find matching raga
+  let info=null;
+  for(const [key,val] of Object.entries(RAGA_DB)){
+    if(titleLower.includes(key)){info=val;break;}
+  }
+  // also check active vibe query
+  if(!info && activeVibe){
+    const vq=(document.querySelector(`.vcard[data-vibe="${activeVibe}"]`)?.dataset.query||'').toLowerCase();
+    for(const [key,val] of Object.entries(RAGA_DB)){
+      if(vq.includes(key)){info=val;break;}
+    }
+  }
+  if(!info){
+    body.innerHTML=`
+      <div class="rhero">
+        <div class="rname">${song.title}</div>
+        <div class="rhiname">Instrumental</div>
+        <div class="rtags"><span class="rtag">🎵 Now Playing</span><span class="rtag">${song.artist}</span></div>
+        <div class="rdesc">Raga information is available for classical ragas — Bhairav, Yaman, Bhimpalasi, Darbari, Malhar and more. Try playing a raga-based track to see full details.</div>
+      </div>
+      <div class="rnoinfo" style="padding:10px 0 0">Browse the Time category for raga-specific tracks ✦</div>`;
+    openModal('ragaModal');
+    return;
+  }
+  body.innerHTML=`
+    <div class="rhero">
+      <div class="rname">${info.name}</div>
+      <div class="rhiname">${info.hi}</div>
+      <div class="rtags">
+        <span class="rtag">⏰ ${info.time}</span>
+        <span class="rtag">🎼 Thaat: ${info.thaat}</span>
+      </div>
+      <div class="rdesc">${info.desc}</div>
+    </div>
+    <div class="rsect">
+      <div class="rsecttitle">Mood & Character</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.7;">${info.mood}</div>
+    </div>
+    <div class="rsect">
+      <div class="rsecttitle">Arohanam (Ascending scale)</div>
+      <div style="font-family:var(--fd);font-size:17px;letter-spacing:0.12em;color:var(--text);opacity:0.8;">${info.aroh}</div>
+    </div>
+    <div class="rsect">
+      <div class="rsecttitle">Famous film songs in this raga</div>
+      <div class="rfilms">${info.films.map(f=>`
+        <div class="rfilm">
+          <div class="rfilm-e">${f.e}</div>
+          <div><div class="rfilm-t">${f.t}</div><div class="rfilm-s">${f.s}</div></div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  openModal('ragaModal');
+}
+
+// ══════════════════════════════════════════════════════════════
+// ── AMBIENT MIXER ─────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+const AMB_SOURCES=[
+  {id:'rain',    icon:'🌧️', name:'Rain',         desc:'Soft rainfall on leaves',      url:'https://assets.mixkit.co/active_storage/sfx/2515/2515-preview.mp3'},
+  {id:'river',   icon:'🌊', name:'River',        desc:'Flowing stream over stones',   url:'https://assets.mixkit.co/active_storage/sfx/2520/2520-preview.mp3'},
+  {id:'forest',  icon:'🌲', name:'Forest',       desc:'Birds and rustling trees',     url:'https://assets.mixkit.co/active_storage/sfx/2517/2517-preview.mp3'},
+  {id:'fire',    icon:'🔥', name:'Fireplace',    desc:'Crackling wood fire',          url:'https://assets.mixkit.co/active_storage/sfx/1235/1235-preview.mp3'},
+  {id:'cafe',    icon:'☕', name:'Café',         desc:'Gentle coffee shop hum',       url:'https://assets.mixkit.co/active_storage/sfx/2432/2432-preview.mp3'},
+  {id:'wind',    icon:'🍃', name:'Wind',         desc:'Gentle breeze through trees',  url:'https://assets.mixkit.co/active_storage/sfx/2516/2516-preview.mp3'},
+];
+const ambAudios={};
+
+function initAmbMixer(){
+  const container=document.getElementById('ambTracks');
+  container.innerHTML='';
+  AMB_SOURCES.forEach(src=>{
+    // create audio element
+    const a=new Audio();
+    a.loop=true;a.volume=0.4;
+    ambAudios[src.id]=a;
+
+    const row=document.createElement('div');
+    row.className='arow';row.id='ambrow-'+src.id;
+    row.innerHTML=`
+      <div class="aicon">${src.icon}</div>
+      <div class="ameta"><div class="aname">${src.name}</div><div class="adesc">${src.desc}</div></div>
+      <input type="range" class="avol" min="0" max="1" step="0.05" value="0.4" data-id="${src.id}" title="Volume"/>
+      <button class="atog" id="atog-${src.id}" data-id="${src.id}">▶</button>`;
+    container.appendChild(row);
+
+    // toggle play/stop
+    row.querySelector('.atog').addEventListener('click',function(){
+      const aid=this.dataset.id;
+      const au=ambAudios[aid];
+      if(au.paused){
+        au.src=AMB_SOURCES.find(s=>s.id===aid).url;
+        au.play().catch(()=>{});
+        this.textContent='■';this.classList.add('on');
+        document.getElementById('ambrow-'+aid).classList.add('on');
+      } else {
+        au.pause();au.currentTime=0;
+        this.textContent='▶';this.classList.remove('on');
+        document.getElementById('ambrow-'+aid).classList.remove('on');
+      }
+    });
+    // volume
+    row.querySelector('.avol').addEventListener('input',function(){
+      ambAudios[this.dataset.id].volume=+this.value;
+    });
+  });
+}
+
+function ambStopAll(){
+  Object.values(ambAudios).forEach(a=>{a.pause();a.currentTime=0;});
+  document.querySelectorAll('.atog').forEach(b=>{b.textContent='▶';b.classList.remove('on');});
+  document.querySelectorAll('.arow').forEach(r=>r.classList.remove('on'));
+  showToast('All ambient sounds stopped');
+}
+
+// init mixer when modal opens
+document.getElementById('ambModal').addEventListener('transitionend',function(){
+  if(this.classList.contains('open') && !document.getElementById('ambTracks').children.length){
+    initAmbMixer();
+  }
+});
+
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 
 // ── KEYBOARD SHORTCUTS ────────────────────────────────────────
@@ -766,6 +1181,168 @@ document.getElementById('installBtn')?.addEventListener('click', async () => {
 window.addEventListener('appinstalled', () => {
   document.getElementById('installBanner').style.display = 'none';
 });
+
+
+// Expose to global scope for onclick handlers
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.openRagaModal = openRagaModal;
+window.moodNext = moodNext;
+window.moodBack = moodBack;
+window.moodFinish = moodFinish;
+window.moodApply = moodApply;
+window.setTimerPreset = setTimerPreset;
+window.timerReset = timerReset;
+window.timerToggle = timerToggle;
+window.ambStopAll = ambStopAll;
+window.showMoodStep = showMoodStep;
+
+});
 </script>
+
+<!-- ═══ MOOD CHECK-IN MODAL ═══ -->
+<div class="mwrap" id="moodModal">
+  <div class="mbg" onclick="closeModal('moodModal')"></div>
+  <div class="modal">
+    <div class="mhandle"></div>
+    <div class="mhead">
+      <div class="mtitle">How are you feeling?</div>
+      <button class="mclose" onclick="closeModal('moodModal')">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="mprog">
+        <div class="mdot done" id="md0"></div>
+        <div class="mdot" id="md1"></div>
+        <div class="mdot" id="md2"></div>
+      </div>
+
+      <!-- Step 1: Energy -->
+      <div class="mstep on" id="ms0">
+        <div class="mq">What's your energy like right now?</div>
+        <div class="mhint">Be honest — we'll find the perfect raga</div>
+        <div class="mopts">
+          <div class="mopt" data-step="0" data-val="low"><div class="mopt-e">🌊</div><div class="mopt-l">Low & still</div><div class="mopt-s">Quiet inside</div></div>
+          <div class="mopt" data-step="0" data-val="medium"><div class="mopt-e">🌿</div><div class="mopt-l">Balanced</div><div class="mopt-s">Steady flow</div></div>
+          <div class="mopt" data-step="0" data-val="high"><div class="mopt-e">🔥</div><div class="mopt-l">Charged up</div><div class="mopt-s">Ready to move</div></div>
+          <div class="mopt" data-step="0" data-val="tired"><div class="mopt-e">🌙</div><div class="mopt-l">Tired</div><div class="mopt-s">Need to rest</div></div>
+        </div>
+        <div class="mnavrow"><button class="mnbtn pri" onclick="moodNext()">Next →</button></div>
+      </div>
+
+      <!-- Step 2: Emotion -->
+      <div class="mstep" id="ms1">
+        <div class="mq">What emotion sits closest?</div>
+        <div class="mhint">There's no wrong answer</div>
+        <div class="mopts">
+          <div class="mopt" data-step="1" data-val="peaceful"><div class="mopt-e">☮️</div><div class="mopt-l">Peaceful</div><div class="mopt-s">At ease</div></div>
+          <div class="mopt" data-step="1" data-val="romantic"><div class="mopt-e">🌹</div><div class="mopt-l">Romantic</div><div class="mopt-s">Warm longing</div></div>
+          <div class="mopt" data-step="1" data-val="melancholic"><div class="mopt-e">🌫️</div><div class="mopt-l">Wistful</div><div class="mopt-s">Bittersweet</div></div>
+          <div class="mopt" data-step="1" data-val="motivated"><div class="mopt-e">⚡</div><div class="mopt-l">Motivated</div><div class="mopt-s">Driven</div></div>
+        </div>
+        <div class="mnavrow">
+          <button class="mnbtn" onclick="moodBack()">← Back</button>
+          <button class="mnbtn pri" onclick="moodNext()">Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Setting -->
+      <div class="mstep" id="ms2">
+        <div class="mq">Where are you right now?</div>
+        <div class="mhint">Your surroundings shape the music</div>
+        <div class="mopts">
+          <div class="mopt" data-step="2" data-val="nature"><div class="mopt-e">🌲</div><div class="mopt-l">Nature / outdoors</div><div class="mopt-s">Open air</div></div>
+          <div class="mopt" data-step="2" data-val="cafe"><div class="mopt-e">☕</div><div class="mopt-l">Café / indoors</div><div class="mopt-s">Warm space</div></div>
+          <div class="mopt" data-step="2" data-val="rain"><div class="mopt-e">🌧️</div><div class="mopt-l">Rainy day</div><div class="mopt-s">Grey skies</div></div>
+          <div class="mopt" data-step="2" data-val="latenight"><div class="mopt-e">🌙</div><div class="mopt-l">Late night</div><div class="mopt-s">Quiet hours</div></div>
+        </div>
+        <div class="mnavrow">
+          <button class="mnbtn" onclick="moodBack()">← Back</button>
+          <button class="mnbtn pri" onclick="moodFinish()">Find my vibe ✦</button>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="mstep" id="ms3">
+        <div class="mres">
+          <div class="mres-e" id="mresEmoji">🌿</div>
+          <div class="mres-t" id="mresTitle">—</div>
+          <div class="mres-s" id="mresSub">—</div>
+          <button class="mnbtn pri" onclick="moodApply()" style="margin:0 auto;display:block;">Play this vibe ✦</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOCUS TIMER MODAL ═══ -->
+<div class="mwrap" id="timerModal">
+  <div class="mbg" onclick="closeModal('timerModal')"></div>
+  <div class="modal">
+    <div class="mhandle"></div>
+    <div class="mhead">
+      <div class="mtitle">Focus Timer</div>
+      <button class="mclose" onclick="closeModal('timerModal')">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="tring">
+        <svg class="tsvg" width="190" height="190" viewBox="0 0 190 190">
+          <circle class="tbg" cx="95" cy="95" r="85"/>
+          <circle class="tfg" id="timerRing" cx="95" cy="95" r="85"/>
+        </svg>
+        <div class="tinner">
+          <div class="tdisp" id="timerDisp">25:00</div>
+          <div class="tphase" id="timerPhase">Focus</div>
+          <div class="tsess" id="timerSess">Session 1 of 4</div>
+        </div>
+      </div>
+      <div class="tpresets">
+        <button class="tpbtn on" data-work="25" data-brk="5" onclick="setTimerPreset(this,25,5)">25 / 5</button>
+        <button class="tpbtn" data-work="50" data-brk="10" onclick="setTimerPreset(this,50,10)">50 / 10</button>
+        <button class="tpbtn" data-work="90" data-brk="20" onclick="setTimerPreset(this,90,20)">90 / 20</button>
+      </div>
+      <div class="tctrl">
+        <button class="tcbtn" onclick="timerReset()">Reset</button>
+        <button class="tcbtn pri" id="timerStartBtn" onclick="timerToggle()">Start</button>
+      </div>
+      <div class="tinfo" id="timerInfo">Music plays during focus. Auto-pauses on break. ✦</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ RAGA INFO MODAL ═══ -->
+<div class="mwrap" id="ragaModal">
+  <div class="mbg" onclick="closeModal('ragaModal')"></div>
+  <div class="modal">
+    <div class="mhandle"></div>
+    <div class="mhead">
+      <div class="mtitle">Raga Info</div>
+      <button class="mclose" onclick="closeModal('ragaModal')">✕</button>
+    </div>
+    <div class="mbody" id="ragaBody">
+      <div class="rnoinfo">Play a song first to see its raga information ✦</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ AMBIENT MIXER MODAL ═══ -->
+<div class="mwrap" id="ambModal">
+  <div class="mbg" onclick="closeModal('ambModal')"></div>
+  <div class="modal">
+    <div class="mhandle"></div>
+    <div class="mhead">
+      <div class="mtitle">Ambient Mixer</div>
+      <button class="mclose" onclick="closeModal('ambModal')">✕</button>
+    </div>
+    <div class="mbody">
+      <p class="aintro">Layer nature sounds beneath your music. Adjust each volume independently.</p>
+      <div class="amaster">
+        <span class="amaster-l">✦ All ambient layers</span>
+        <button class="astopall" onclick="ambStopAll()">Stop All</button>
+      </div>
+      <div class="atracks" id="ambTracks"></div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
